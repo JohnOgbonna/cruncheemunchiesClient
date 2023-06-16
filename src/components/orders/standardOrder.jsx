@@ -1,4 +1,4 @@
-import standardPackaging from "../../public/exports/image_exports";
+import standardPackaging from "../../public/exports/standardPackaging";
 import { useState } from "react";
 import "./orders.scss"
 

@@ -3,7 +3,7 @@ import OrderRequestForm from './components/forms/orderRequestForm';
 import LandingPage from './pages/landing/LandingPage';
 import NavBar from './components/nav-bar/navBar';
 import OrderButton from './components/requestOrderButton/orderButton';
-import WhereTobuy from './pages/Where_to_buy/whereToBuy';
+import WhereTobuy from './pages/where_to_buy/whereToBuy';
 import OrderPage from './pages/order/orderpage';
 function App() {
   return (
