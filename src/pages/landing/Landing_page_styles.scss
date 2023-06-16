@@ -1,0 +1,22 @@
+@use '../../components/partials/mixins' as *;
+@use '../../components/partials/variables' as *;
+
+.App{
+    font-family: website;
+}
+.Page{
+    padding: .5rem 1rem;
+    min-height: 100vh;
+    @include tablet{
+        padding: .5rem 0rem;
+    }
+    &__header{
+        @include tablet{
+            margin: 0 1rem;
+            max-width: 1280px;
+        }
+    }
+}
+body{
+    position: relative;
+}

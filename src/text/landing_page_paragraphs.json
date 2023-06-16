@@ -1,0 +1,17 @@
+[
+    {
+        "title": "Best in The World",
+        "text":"Tried, Tested, and True! The best formula for chin-chin, with rave reviews from virtually all customers. You've never had Chin-Chin like this before! Order today!",
+        "image": "../../public/images/chin_chin1.jpeg"
+    },
+    {
+        "title": "LOREM IPSUM",
+        "text":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eu magna ac lorem ornare scelerisque. Phasellus tincidunt nisl et purus accumsan, nec tincidunt ipsum pharetra. Curabitur vitae sapien ut metus bibendum suscipit. Vivamus posuere tincidunt eleifend. Morbi eget augue et nisl porta aliquam ut sed est. Donec",
+        "image": "../../public/images/chin_chin2.jpeg"
+    },
+    {
+        "title": "IPSUM LOREM ",
+        "text":"Curabitur euismod vestibulum libero at tincidunt. Nulla et velit augue. Nunc non accumsan purus, sit amet semper est. Nunc accumsan id nunc sed bibendum. Maecenas interdum vitae ex eu pharetra. Praesent facilisis felis diam, nec scelerisque ipsum elementum quis. Duis pretium placerat lacus porta volutpat. Praesent quis ipsum at nunc pulvinar consectetur. Curabitur eget tellus nec elit finibus fringilla.",
+        "image": "../../public/images/chin_chin2.jpeg"
+    }
+]

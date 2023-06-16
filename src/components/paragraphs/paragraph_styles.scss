@@ -1,0 +1,41 @@
+@use '../partials/mixins' as *;
+@use '../partials/variables' as *;
+
+.paragraph{
+    
+        overflow: hidden;
+    
+    box-shadow: 0.05rem 0.1rem 0.3rem -0.03rem rgba(0, 0, 0, 0.45);
+    margin-bottom: 1rem;
+    padding: 0 .5rem;
+    @include tablet{
+        box-shadow: none;
+        padding: 0;
+    }
+    &:hover{
+        scale: 1.03;
+    }
+    &__image{
+        position: relative;
+        min-height: 300px;
+        right: 1rem;
+        width: 100vw;
+        @include tablet{
+            height: 75vh;
+            max-height: none;
+            position: relative;
+            width:fit-content;
+            justify-self: center;
+            min-width: calc(100% + 2rem);
+            
+            
+        }
+    }
+    &__text{
+        max-width: 1280px;
+        @include tablet{
+            margin: 0 1rem;
+            max-width: 1280px;
+        }
+    }
+}

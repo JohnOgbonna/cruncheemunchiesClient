@@ -1,0 +1,68 @@
+@use '../../components/partials/variables' as *;
+@use '../../components/partials/mixins' as *;
+.mapCard{
+    width: calc(100% - .5rem);
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    margin-left: .5rem;
+    height: 15vh;
+    min-height: 80px;
+    box-shadow: 0.05rem 0.1rem 0.3rem -0.03rem rgba(0, 0, 0, 0.45);
+    @include tablet{
+        width: calc(50% - 1rem);
+        margin-right: .5rem;
+    }
+    &Container{
+        @include tablet{
+            display: flex;
+            flex-wrap: wrap;
+            max-width: 1280px;
+            margin: auto;
+        }
+    }
+    justify-content: flex-start;
+    &__image{
+        width: 30%;
+        margin-right: 1rem;
+    
+    }
+    &__text{
+        &-header{
+            margin: .5rem 0 1rem 0;
+
+        }
+    }    
+}
+.mapFrame{
+    position: relative;
+    left: .5rem;
+    height: 50vh;
+    min-height: 400px;
+    max-width: 1280px;
+    box-shadow: 0.05rem 0.1rem 0.3rem -0.03rem rgba(0, 0, 0, 0.45);
+    position: relative;
+    right: .5rem;
+    width: 100%;
+   &Wrapper{
+    width: calc(100% - 1rem);
+       display: flex;
+       justify-content: center;
+       position: relative;
+      
+   }
+   
+    @include mobile{
+        &Wrapper{
+            position: absolute;
+            z-index: 5;
+            width: 100vw;
+            height: 100vh;
+        }
+        position: fixed;
+        bottom: 25vh;
+        width: 80vw;
+        left: 10vw;
+        
+    }
+}

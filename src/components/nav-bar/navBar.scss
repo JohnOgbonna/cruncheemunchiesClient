@@ -1,0 +1,97 @@
+@use '../partials/mixins' as *;
+@use '../partials/variables' as *;
+
+
+body{
+    @include mobile{
+    padding-bottom: 60px;
+    }
+    @include tablet{
+        padding: 60px 0;
+
+    }
+}
+.NavBar{
+    position: fixed;
+    bottom: 0px;
+    z-index: 3;
+    background-color: rgb(236, 177, 67);
+    color: white;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content:space-between;
+    @include tablet{
+        top: 0px;
+        box-sizing: border-box;
+    }
+    @include mobile{
+        height: 50px;
+    }
+    &__Header{
+        font-weight: bold;
+        font-weight: bolder;
+        @include mobile{
+            display: none;
+        }
+        margin-left: .5rem;
+        font-size: 28px;
+      
+    }
+    &__Container{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        overflow-x: scroll ;
+        padding: 0 1rem;
+        width: 100%;
+        box-sizing: border-box;
+        max-width: 1280px;
+        margin: 0;
+        height: fit-content;
+        align-items: center;
+        @include mobile{
+            padding: 0 8px;
+        }
+        @include tablet{
+            width: 55%;
+        }
+    }
+}
+.section{
+    &__topic{
+        margin: 1rem 0;
+        font-size: 13px;
+        width: 25%;
+       
+        height: fit-content;
+        margin: 0;
+       
+
+        
+        &:hover{
+            scale: 1.05;
+            transform: translateY(-8px);
+            transition: all .2s ease;
+            z-index: 4;
+        }
+        &-name{
+            width: 100%;
+            text-align: center;
+            margin: 0;
+            @include mobile{
+                font-size: 12px;
+                text-align: center;
+               
+            }
+           
+        }
+        list-style: none;
+    }
+
+}
+a{
+    text-decoration: inherit;
+    color: inherit;
+}
