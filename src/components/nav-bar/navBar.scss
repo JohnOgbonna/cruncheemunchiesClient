@@ -3,6 +3,7 @@
 
 
 body{
+    background-color: rgb(251, 246, 235);
     @include mobile{
     padding-bottom: 60px;
     }

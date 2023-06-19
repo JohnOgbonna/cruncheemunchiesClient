@@ -16,44 +16,8 @@
       @content;
     }
   }
-  @mixin themeBuilder {
-    &Red{
-        background-color: $themeRed;
-    }
-    &Blue{
-        background-color: $themeBlue;
-    }
-    &Sky{
-        background-color: $themeSky;
-    }
-    &Purple{
-        background-color: $themePurple;
-    }
-    &Green{
-        background-color: $themeGreen;
-    }
-    &Grey{
-        background-color: $themeGrey;
-      }
-  }
-  @mixin themeText {
-    &Red{
-        color: $themeRed;
-    }
-    &Blue{
-        color: $themeBlue;
-    }
-    &Sky{
-        color: $themeSky;
-    }
-    &Purple{
-        color: $themePurple;
-    }
-    &Green{
-        color: $themeGreen;
-    }
-    &Grey{
-        color: $themeGrey;
-    }
+  @mixin alternate_background_color {
+    color: rgb(143, 110, 49);
+    background-color: rgb(255, 241, 214);
   }
   

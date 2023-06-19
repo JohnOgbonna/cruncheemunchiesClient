@@ -17,6 +17,10 @@ function CustomOrder() {
             info: 'Request Event Orders'
         },
     ]
+    const conditions = [
+        '* Custom label designs subject to an extra cost',
+        '** We design and print labels profesionally with images provided by customers. Contact us (403-616-2325) for more information'
+    ]
     return (
         <div className='CustomOrder'>
             <section className='CustomOrderHeader'>
@@ -44,6 +48,22 @@ function CustomOrder() {
                     <CustomOrderDetails />
                     : null
             }
+            <section className='CustomOrderFooter'>
+                <h3 className='CustomOrderFooter__header'>Crunchee Munchies</h3>
+                <div className='CustomOrderFooter__conditions'>
+                    <h4 className='CustomOrderFooter__conditions-header'>Conditions</h4>
+                    {
+                        conditions.map(condition => {
+                            return (
+                                <div className='CustomOrderFooter__conditions-list'>
+                                    <h4 className='CustomOrderFooter__conditions-list--item'>{condition}</h4>
+                                </div>
+                            )
+                        })
+                    }
+
+                </div>
+            </section>
         </div>
     )
 }

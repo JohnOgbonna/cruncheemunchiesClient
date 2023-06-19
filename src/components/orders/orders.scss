@@ -13,14 +13,15 @@
         align-items: center;
         border-radius: 6px;
         margin-bottom: 2rem;
-        &:hover{
+
+        &:hover {
             scale: 1.08;
             transition: all ease-in-out 0.2s;
         }
 
         @include tablet {
             margin-right: 2rem;
-          
+
         }
 
         &Container {
@@ -31,8 +32,8 @@
 
             @include tablet {
                 flex-direction: row;
-               flex-wrap: wrap;
-               
+                flex-wrap: wrap;
+
             }
 
             border-bottom: 1px solid orange;
@@ -87,29 +88,139 @@
         }
     }
 }
-.CustomOrder{
-    &Header{
+
+.CustomOrder {
+    &Header {
         border-bottom: 1px solid orange;
-        &__description{
-            @include mobile{
+        margin-bottom: 1rem;
+
+        &__description {
+            @include mobile {
                 font-size: .8rem;
                 margin-top: 0
-            };
+            }
         }
-        &__selector{
+
+        &__selector {
             display: flex;
-            &-item{
+
+            &-item {
                 margin-right: 2rem;
-                &--header{
+
+                &--header {
                     margin-bottom: 0;
                 }
-                &--info{
+
+                &--info {
                     font-size: .8rem;
                     margin-top: .3rem;
-                    @include mobile{
+
+                    @include mobile {
                         font-size: .72rem;
                     }
                 }
+            }
+        }
+    }
+
+    &Details {
+
+        &__sizes,
+        &__labeled,
+        &__label {
+            display: relative;
+            @include alternate_background_color;
+            position: relative;
+            width: calc(100% + 1rem);
+            right: 2rem;
+            padding: .5rem .5rem;
+
+            &-container {
+                display: flex;
+                width: 100%;
+                overflow-x: scroll;
+                align-items: center;
+                box-shadow: 8px 0px 5px rgb(255, 241, 214) inset;
+
+                @include desktop {
+                    justify-content: center;
+                }
+
+            }
+
+            &-wrapper {
+                display: flex;
+                // margin: 0 2rem 2rem 0;
+                right: 2rem;
+                padding: 1rem 2rem .5rem 2rem;
+                align-items: center;
+                flex-direction: column;
+                width: fit-content;
+                justify-content: flex-end;
+                border-right: 1px solid orange;
+
+                &:last-child {
+                    border-right: none;
+                    margin-right: 0;
+                }
+
+                @include tablet {
+                    height: 400px;
+                }
+
+            }
+
+            &-header {
+                font-size: 1.2rem;
+            }
+
+            &-image {
+                max-width: 200px;
+            }
+
+            &-image--label {
+                height: 300px;
+
+                @include tablet {
+                    height: 450px;
+                }
+            }
+
+            &-image--wide {
+                max-width: 240px;
+                border-radius: 8px;
+            }
+
+            &-caption {
+                font-size: .75rem;
+                margin-left: 1rem;
+            }
+        }
+    }
+
+    &Footer {
+        margin: 0;
+        @include alternate_background_color;
+        position: relative;
+        width: 100%;
+        right: 1rem;
+        padding: 2.5rem 1rem 1rem 1rem;
+       
+        &__conditions{
+            &-header{
+                text-decoration: underline;
+                margin: .5rem 0;
+            }
+            &-list{
+              &--item{
+                margin: .5rem 0;
+                font-size: .7rem;
+                &:hover{
+                    transition: all ease-in-out .1s;
+                    scale: 1.01;
+                    text-decoration: underline;
+                }
+              }  
             }
         }
     }
