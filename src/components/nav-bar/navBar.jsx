@@ -1,7 +1,10 @@
 import "./navBar.scss"
 import {Link} from 'react-router-dom';
+import {Order} from '../../App';
+import { useContext } from "react";
 
 function NavBar(props) {
+    const [order, setOrder] = useContext(Order)
     const sections = [
         {
             name: 'About Us',

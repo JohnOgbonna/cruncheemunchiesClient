@@ -69,6 +69,5 @@ function CustomOrderDetails() {
             </section>
         </div>
     )
-
 }
 export default CustomOrderDetails

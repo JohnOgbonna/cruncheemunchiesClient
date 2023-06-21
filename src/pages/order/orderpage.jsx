@@ -1,11 +1,16 @@
 import './orderpage.scss'
-import {useState} from 'react'
+import { useState } from 'react'
 import StandardOrder from '../../components/orders/standardOrder'
 import CustomOrder from '../../components/orders/customOrder'
 
 function OrderPage() {
 
-    const[packageType, setPackageType] = useState('standard')
+    const [packageType, setPackageType] = useState(
+        localStorage.getItem('order') ? 
+        JSON.parse(localStorage.getItem('packageType'))
+        : 'standard'
+        )
+
     const packageTypes = [
         {
             name: 'standard',
@@ -21,28 +26,31 @@ function OrderPage() {
     return (
         <div className='Orderpage'>
             <section className='OrderpageHeader'>
-            <h1 className='OrderpageHeader__headline'>Request an Order</h1>
+                <h1 className='OrderpageHeader__headline'>Request an Order</h1>
             </section>
             <section className='OrderpageSelector'>
                 <ul className='OrderpageSelector__options'>
                     {
-                        packageTypes.map(type =>{
-                            return(
-                                <li className='OrderpageSelector__options-option' onClick={()=> setPackageType(type.name)}>
-                                   <h3 className='OrderpageSelector__name'>{type.desciption}</h3>
-                                   <p className='OrderpageSelector__info'>{type.info}</p>
+                        packageTypes.map(type => {
+                            return (
+                                <li className='OrderpageSelector__options-option' onClick={() => {
+                                    setPackageType(type.name)
+                                    localStorage.setItem('packageType', JSON.stringify(type.name))
+                                }}>
+                                    <h3 className='OrderpageSelector__name'>{type.desciption}</h3>
+                                    <p className='OrderpageSelector__info'>{type.info}</p>
                                 </li>
                             )
                         })
                     }
                 </ul>
-                
+
             </section>
             <section className='OrderpageOrder'>
                 {
-                    packageType !== 'event' ? 
-                        <StandardOrder/>
-                    : <CustomOrder/>
+                    packageType !== 'event' ?
+                        <StandardOrder />
+                        : <CustomOrder />
                 }
             </section>
         </div>

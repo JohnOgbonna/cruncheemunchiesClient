@@ -13,13 +13,17 @@ const customOrder = {
             name: '60g',
             caption: 'Custom 60g Packaging with option for label on the front or back **',
             cost: 4,
-            image: custom60g
+            image: custom60g,
+            defaultValue: '50',
+            maxValue: '800',
         },
         {
             name: '150g',
             caption: 'Custom 150g Packaging with option for label on the front or back **',
             cost: 6,
-            image: custom150g
+            image: custom150g,
+            defaultValue: '0',
+            maxValue: '560',
         },
     ],
     labeledSizes: [

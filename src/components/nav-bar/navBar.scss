@@ -4,11 +4,12 @@
 
 body{
     background-color: rgb(251, 246, 235);
+    color: rgb(90, 70, 33);
     @include mobile{
     padding-bottom: 60px;
     }
     @include tablet{
-        padding: 60px 0;
+        padding: 0;
 
     }
 }

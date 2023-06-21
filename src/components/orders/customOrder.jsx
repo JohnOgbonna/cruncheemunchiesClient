@@ -1,6 +1,7 @@
 import './orders.scss';
 import { useState } from 'react';
 import CustomOrderDetails from './customOrder_subsections/customOrder_details';
+import CustomOrderSelection from './customOrder_subsections/customOrderSelection';
 
 function CustomOrder() {
     const [section, changeSection] = useState('details')
@@ -26,14 +27,14 @@ function CustomOrder() {
             <section className='CustomOrderHeader'>
                 <div className='CustomOrderHeader__text'>
                     <h3 className='CustomOrderHeader__header'>Custom Event/Party Order</h3>
-                    <p className='CustomOrderHeader__description'>Request a custom order for any event, party or gathering! We offer smaller, convenient individual packaging either 60 grams or 150 gram packaging with the option for custom label designs*</p>
+                    <p className='CustomOrderHeader__description'>Request a custom order for any event, party or gathering! We offer smaller, convenient individual packaging of either 60 or 150 grams with the option for custom label designs*</p>
                 </div>
                 <div className='CustomOrderHeader__selector'>
                     {
                         sections.map(section => {
                             return (
                                 <div className='CustomOrderHeader__selector-item'
-                                    onClick={() => changeSection(section.name)}
+                                    onClick={() => changeSection(section.section)}
                                 >
                                     <h4 className='CustomOrderHeader__selector-item--header'>{section.name}</h4>
                                     <p className='CustomOrderHeader__selector-item--info'>{section.info}</p>
@@ -46,7 +47,8 @@ function CustomOrder() {
             {
                 section !== 'order' ?
                     <CustomOrderDetails />
-                    : null
+                    : 
+                    <CustomOrderSelection />
             }
             <section className='CustomOrderFooter'>
                 <h3 className='CustomOrderFooter__header'>Crunchee Munchies</h3>
