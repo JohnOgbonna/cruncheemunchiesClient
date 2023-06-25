@@ -4,7 +4,11 @@ import CustomOrderDetails from './customOrder_subsections/customOrder_details';
 import CustomOrderSelection from './customOrder_subsections/customOrderSelection';
 
 function CustomOrder() {
-    const [section, changeSection] = useState('details')
+    const [section, changeSection] = useState(
+        localStorage.getItem('customOrderSection') ?
+        JSON.parse(localStorage.getItem('customOrderSection')) :
+        'details'
+    )
 
     const sections = [
         {
@@ -34,7 +38,9 @@ function CustomOrder() {
                         sections.map(section => {
                             return (
                                 <div className='CustomOrderHeader__selector-item'
-                                    onClick={() => changeSection(section.section)}
+                                    onClick={() =>{ changeSection(section.section)
+                                    localStorage.setItem('customOrderSection', JSON.stringify(section.section))
+                                    }}
                                 >
                                     <h4 className='CustomOrderHeader__selector-item--header'>{section.name}</h4>
                                     <p className='CustomOrderHeader__selector-item--info'>{section.info}</p>

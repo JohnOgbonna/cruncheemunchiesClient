@@ -11,19 +11,27 @@ const customOrder = {
     sizes: [
         {
             name: '60g',
-            caption: 'Custom 60g Packaging with option for label on the front or back **',
+            caption: 'Custom 60g Packaging with option for custom label **',
             cost: 4,
             image: custom60g,
             defaultValue: '50',
             maxValue: '800',
+            discount100:{
+                amount: 0.5,
+                threshhold: 100
+            }
         },
         {
             name: '150g',
-            caption: 'Custom 150g Packaging with option for label on the front or back **',
+            caption: 'Custom 150g Packaging with option for custom label**',
             cost: 6,
             image: custom150g,
             defaultValue: '0',
             maxValue: '560',
+            discount100: {
+                amount: 1,
+                threshhold: 100
+            }
         },
     ],
     labeledSizes: [

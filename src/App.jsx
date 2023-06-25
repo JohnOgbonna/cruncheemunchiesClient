@@ -11,9 +11,10 @@ export const Order = React.createContext();
 
 function App() {
 
-  let [order, setOrder] = useState(localStorage.getItem('order')
+  let [order, setOrder] = useState(
+    localStorage.getItem('order')
     ?
-    JSON.parse(localStorage.getItem('order')) :
+   JSON.parse(localStorage.getItem('order')) :
     {
       standardOrder: {},
       customOrder: {},
@@ -22,7 +23,6 @@ function App() {
   useEffect(() => {
     localStorage.setItem('order', JSON.stringify(order))
   }, [order])
-
 
   return (
     <Router>

@@ -2,50 +2,70 @@
 @use '../partials/variables' as *;
 
 
-body{
+body {
     background-color: rgb(251, 246, 235);
     color: rgb(90, 70, 33);
-    @include mobile{
-    padding-bottom: 60px;
+
+    @include mobile {
+        padding-bottom: 130px;
     }
-    @include tablet{
+
+    @include tablet {
         padding: 0;
 
     }
 }
-.NavBar{
-    position: fixed;
-    bottom: 0px;
+
+.NavBar {
+    position: sticky;
+    bottom: 1px;
     z-index: 3;
     background-color: rgb(236, 177, 67);
     color: white;
-    height: 70px;
+    height: fit-content;
     display: flex;
-    align-items: center;
     width: 100%;
-    justify-content:space-between;
-    @include tablet{
+    justify-content: space-between;
+    flex-direction: column;
+
+    &__line1 {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    @include tablet {
         top: 0px;
         box-sizing: border-box;
     }
-    @include mobile{
-        height: 50px;
+
+    @include mobile {
+        position: fixed;
+        bottom: 0;
+        height: fit-content;
+        flex-direction: column-reverse;
+        padding-bottom: 1rem;
     }
-    &__Header{
+
+    &__Header {
         font-weight: bold;
         font-weight: bolder;
-        @include mobile{
+
+        @include mobile {
             display: none;
         }
+
         margin-left: .5rem;
         font-size: 28px;
-      
+
     }
-    &__Container{
+
+    &__Container {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
-        overflow-x: scroll ;
+        overflow-x: scroll;
         padding: 0 1rem;
         width: 100%;
         box-sizing: border-box;
@@ -53,47 +73,75 @@ body{
         margin: 0;
         height: fit-content;
         align-items: center;
-        @include mobile{
+        text-align: left;
+
+        @include mobile {
             padding: 0 8px;
         }
-        @include tablet{
+
+        @include tablet {
             width: 55%;
         }
     }
+    &__order{
+        padding-left: 1rem;
+        padding-top: .5rem;
+       &-section{
+        &--header{
+            margin: .5rem 0;
+            font-size: 12px;
+        }
+       }
+    }
 }
-.section{
-    &__topic{
+
+a {
+    @include mobile {
+        width: 100%;
+        display: block;
+        text-align: center;
+    }
+}
+
+.section {
+    &__topic {
         margin: 1rem 0;
         font-size: 13px;
         width: 25%;
-       
+
+
         height: fit-content;
         margin: 0;
-       
 
-        
-        &:hover{
-            scale: 1.05;
-            transform: translateY(-8px);
-            transition: all .2s ease;
-            z-index: 4;
+        @include tablet {
+            &:hover {
+                scale: 1.05;
+                transform: translateY(-8px);
+                transition: all .2s ease;
+                z-index: 4;
+            }
         }
-        &-name{
+
+
+        &-name {
             width: 100%;
             text-align: center;
             margin: 0;
-            @include mobile{
+
+            @include mobile {
                 font-size: 12px;
                 text-align: center;
-               
+
             }
-           
+
         }
+
         list-style: none;
     }
 
 }
-a{
+
+a {
     text-decoration: inherit;
     color: inherit;
 }
