@@ -1,15 +1,18 @@
 import './orderpage.scss'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import StandardOrder from '../../components/orders/standardOrder'
 import CustomOrder from '../../components/orders/customOrder'
+import { useParams, useNavigate } from 'react-router-dom'
 
 function OrderPage() {
 
+    const params = useParams()
+    const navigate = useNavigate()
     const [packageType, setPackageType] = useState(
-        localStorage.getItem('order') ? 
-        JSON.parse(localStorage.getItem('packageType'))
-        : 'standard'
-        )
+        params.section && (params.section === 'standard' || params.section === 'event') ? params.section : localStorage.getItem('packageType') ?
+            JSON.parse(localStorage.getItem('packageType')) : 'standard'
+
+    )
 
     const packageTypes = [
         {
@@ -36,6 +39,7 @@ function OrderPage() {
                                 <li className='OrderpageSelector__options-option' onClick={() => {
                                     setPackageType(type.name)
                                     localStorage.setItem('packageType', JSON.stringify(type.name))
+                                    navigate(`/order/${type.name}`)
                                 }}>
                                     <h3 className='OrderpageSelector__name'>{type.desciption}</h3>
                                     <p className='OrderpageSelector__info'>{type.info}</p>

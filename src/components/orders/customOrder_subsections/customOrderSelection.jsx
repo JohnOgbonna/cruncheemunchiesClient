@@ -1,18 +1,30 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef, useContext } from 'react';
 import '../orders.scss'
 import customOrder from '../../../public/exports/customOrder';
 import { Order } from '../../../App';
-import { useContext } from "react";
-import { useEffect } from 'react';
+import { formatCash } from '../../../public/exports/functions';
+import { constants } from '../../../public/exports/constants';
 
 function CustomOrderSelection() {
-
     const [order, setOrder] = useContext(Order);
     const [added, setAdded] = useState({})
     const [quantity, setQuantity] = useState({})
+    const [labelSelected, setLabelSelected] = useState({})
+
+    // setLabeledStatus
+    useEffect(() => {
+        let labelled = {}
+        customOrder.sizes.forEach(size => {
+            if (order.customOrder[size.name] && order.customOrder[size.name].label) {
+                labelled[size.name] = order.customOrder[size.name].label
+            }
+        })
+        setLabelSelected(labelled)
+    }, [])
 
     function updateOrder(name, quantity, caption, cost, label, discount) {
         if (quantity > 0) {
+            const labelCost = label ? constants.labelPrice * quantity : 0
             setOrder({
                 ...order,
                 customOrder: {
@@ -23,9 +35,10 @@ function CustomOrderSelection() {
                         'description': caption,
                         'cost': cost,
                         'label': label,
-                        'totalCost': quantity >= discount.threshhold ? (quantity * (cost - discount.amount)) : cost,
+                        'totalCost': quantity >= discount.threshhold ? (quantity * (cost - discount.amount)) + labelCost : quantity * cost + labelCost,
                         'discountAdded': quantity >= discount.threshhold ? true : false,
-                        'discountPrice': quantity >= discount.threshhold ? cost - discount.amount : null
+                        'discountedPrice': quantity >= discount.threshhold ? cost - discount.amount : cost,
+                        labelCost: labelCost
                     }
                 }
             })
@@ -45,19 +58,23 @@ function CustomOrderSelection() {
             [name]: value ? true : false
         })
     }
-    function calculatePrice(quantity, price, discount) {
-        if (quantity >= discount.threshhold) {
+    function calculatePrice(name, quantity, price, discount, label) {
+        //calculate label cost
+        const labelPrice = label ? .25 : 0
 
-            return (price - discount.amount).toLocaleString('en-US', {
-                style: 'currency',
-                currency: 'USD',
-            })
+        if (quantity) {
+            if (quantity >= discount.threshhold) return formatCash(price - discount.amount + labelPrice)
+            else return formatCash(price + labelPrice)
         }
-        else return price.toLocaleString('en-US', {
-            style: 'currency',
-            currency: 'USD',
-        })
+        else if (order.customOrder[name]) {
+            if (order.customOrder[name].discountAdded) {
+                return (formatCash(order.customOrder[name].discountedPrice + labelPrice))
+            }
+            else return (formatCash(order.customOrder[name].cost + labelPrice))
+        }
+        else return formatCash(price)
     }
+
     return (
         <div className='CustomOrderSelection'>
             <section className='CustomOrderSelection__header'>
@@ -71,10 +88,20 @@ function CustomOrderSelection() {
                                 <img className='CustomOrder__card-image' src={customOrder.image} alt={customOrder.name} />
                                 <div className='CustomOrder__card-text'>
                                     <p className='CustomOrder__card-text--description'>{customOrder.caption}</p>
-                                    <h3 className='CustomOrder__card-text--cost'>{`${quantity[customOrder.name] ? calculatePrice(quantity[customOrder.name], customOrder.cost, customOrder.discount100)
-                                        : customOrder.cost}`}</h3>
+                                    <h3 className='CustomOrder__card-text--cost'>{
+                                        `${quantity && (quantity[customOrder.name] ||( order.customOrder && order.customOrder[customOrder.name])) 
+                                            ? calculatePrice(customOrder.name, quantity[customOrder.name], customOrder.cost, customOrder.discount100, labelSelected[customOrder.name])
+                                            : formatCash(customOrder.cost + (labelSelected[customOrder.name] ? constants.labelPrice : 0))}`
+                                    }
+                                    </h3>
                                 </div>
-                                <p className='CustomOrder__card-discount'>Get a discount of %</p>
+                                <p className='CustomOrder__card-discount'>{(quantity[customOrder.name] && (quantity[customOrder.name] >= customOrder.discount100.threshhold)) || (
+                                    order.customOrder[customOrder.name] &&
+                                    (order.customOrder[customOrder.name].amount
+                                        >= customOrder.discount100.threshhold))
+
+                                    ? `Selected ${customOrder.discount100.threshhold} or more units, ${formatCash(customOrder.discount100.amount)} discount added!` : `Get a discount of ${formatCash(customOrder.discount100.amount)} when you order ${customOrder.discount100.threshhold} or more units!`}
+                                </p>
                                 <form className='CustomOrder__card-quantity--form'
                                     onChange={(e) => {
                                         setSizeAdded(customOrder.name, false)
@@ -85,7 +112,6 @@ function CustomOrderSelection() {
                                             updateOrder(customOrder.name, e.target.customOrderQuantity.value, customOrder.caption, customOrder.cost, e.target.labelSelection.checked, customOrder.discount100);
                                             setSizeAdded(customOrder.name, true)
                                         }
-
                                     }}
                                 >
                                     <div className='CustomOrder__card-quantity--labelCheck'>
@@ -95,8 +121,15 @@ function CustomOrderSelection() {
                                             type='checkbox'
                                             id='labelSelection'
                                             defaultChecked={order.customOrder && order.customOrder[customOrder.name] ?
-                                                order.customOrder[customOrder.name].label : true
+                                                order.customOrder[customOrder.name].label : false
                                             }
+                                            onChange={e => {
+                                                setLabelSelected({
+                                                    ...labelSelected,
+                                                    [customOrder.name]: e.target.checked
+                                                })
+                                            }}
+
                                         />
                                     </div>
                                     <div className='CustomOrder__card-quantity'>
@@ -122,17 +155,12 @@ function CustomOrderSelection() {
                                                         }
                                                     )
                                                 }
-                                                else {
-                                                    let quantityPlaceholder = quantity
-                                                    delete (quantityPlaceholder[customOrder.name])
-                                                    setQuantity(quantityPlaceholder)
-                                                }
                                             }}
                                         />
                                         <button
                                             className='CustomOrder__card-quantity--button'
                                             type='submit'>
-                                            {added[customOrder.name] ? 'Added!' : 'Add to Order Request'}
+                                            {added[customOrder.name] && order.customOrder && order.customOrder[customOrder.name]? 'Added!' : 'Add to Order Request'}
                                         </button>
                                     </div>
                                 </form>

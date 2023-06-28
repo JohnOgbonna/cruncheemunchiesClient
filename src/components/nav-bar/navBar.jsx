@@ -4,13 +4,18 @@ import { Order } from '../../App';
 import { useContext } from 'react';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import { formatCash } from '../../public/exports/functions';
+import { icons } from '../../public/exports/icons';
 
 function NavBar(props) {
-    const [order] = useContext(Order)
+    const [order, setOrder] = useContext(Order)
     const [selections, setSelections] = useState([])
+    const [totalUnits, setTotalUnits] = useState({})
     useEffect(() => {
         let standardOrderselections = []
         let customOrderselections = []
+        let totalUnitsCustom = 0
+        let totalUnitsStandard = 0
         if (order.standardOrder && !(order.standardOrder === {})) {
             Object.keys(order.standardOrder).forEach(name => {
                 standardOrderselections.push(
@@ -19,6 +24,8 @@ function NavBar(props) {
                         ...order.standardOrder[name],
                     }
                 )
+                totalUnitsStandard += order.standardOrder[name].amount
+
             });
         }
         if (order.customOrder && !(order.customOrder === {})) {
@@ -27,37 +34,52 @@ function NavBar(props) {
                     {
                         name: name,
                         ...order.customOrder[name],
-                        
+
                     }
                 )
+                totalUnitsCustom += order.customOrder[name].amount
             })
         }
+
         setSelections([
             {
                 description: 'Standard Order',
                 orders: standardOrderselections,
+                code: 'standard',
+                link: '/order/standard'
             },
             {
                 description: 'Custom Event Order',
                 orders: customOrderselections,
+                code: 'custom',
+                link: '/order/event/order'
             },
         ])
+        setTotalUnits({
+            standard: totalUnitsStandard,
+            custom: totalUnitsCustom
+        }
+        )
     }, [order], [])
 
-    function calculateOrderTotal(orders, description) {
-        let total = 0
-        if (description !== 'Custom Event Order') {
-            order.forEach(order=>{
-                total += order.amount * order.cost
-            })
-            return `$${total}`
-        }
-        else{
-            order.forEach(order=>{
-                total += order.amount * order.cost
-            })
-            return `$${total}`
-        }
+    function removeOrder(section) {
+        console.log(order)
+        setOrder({
+            ...order,
+            [`${section}Order`]: {}
+        })
+    }
+
+
+    function getOrderTotals(orderSelections) {
+        let totalCost = 0;
+        orderSelections.forEach(order => {
+            totalCost += order.totalCost
+        })
+        return totalCost
+    }
+    function emptyOrder() {
+        return Object.keys(order.standardOrder).length > 0 || Object.keys(order.customOrder).length > 0 ? false : true
     }
 
 
@@ -139,19 +161,28 @@ function NavBar(props) {
                     }
                 </ul>
             </div>
-            <div className='NavBar__order'> {selections.length !== [] ?
+
+            <div className={`NavBar__order${!emptyOrder() ? '': 'hidden' }`}> {selections.length > 1 ?
                 selections.map(selection => {
-                    console.log(selection.orders)
                     return (
+
                         <div className={`NavBar__order-section${selection.orders.length < 1 ? 'Hidden' : ''}`}>
                             <h4 className='NavBar__order-section--header'>{selection.description}</h4>
+                            <div className='NavBar__order-section--checkout'>
+                                <h4 className='NavBar__order-section--price'>{`${totalUnits[selection.code]} Total items = ${formatCash(getOrderTotals(selection.orders))}`}</h4>
+                                <button className='NavBar__order-section--button' type='button'>Order</button>
+                                <img className='NavBar__order-section--remove'
+                                    src={icons.close}
+                                    onClick={() => removeOrder(selection.code)}
+                                />
+                            </div>
                         </div>
                     )
                 })
                 : null
             }
-            </div>
         </div>
+        </div >
 
     )
 

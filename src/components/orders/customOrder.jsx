@@ -2,9 +2,14 @@ import './orders.scss';
 import { useState } from 'react';
 import CustomOrderDetails from './customOrder_subsections/customOrder_details';
 import CustomOrderSelection from './customOrder_subsections/customOrderSelection';
+import {useParams, useNavigate} from 'react-router-dom'
 
 function CustomOrder() {
+    const params = useParams()
+    const navigate = useNavigate()
     const [section, changeSection] = useState(
+        params.subsection && (params.subsection === 'details' || params.subsection === 'order') ? params.subsection
+        :
         localStorage.getItem('customOrderSection') ?
         JSON.parse(localStorage.getItem('customOrderSection')) :
         'details'
@@ -40,6 +45,7 @@ function CustomOrder() {
                                 <div className='CustomOrderHeader__selector-item'
                                     onClick={() =>{ changeSection(section.section)
                                     localStorage.setItem('customOrderSection', JSON.stringify(section.section))
+                                    navigate(`/order/event/${section.section}`)
                                     }}
                                 >
                                     <h4 className='CustomOrderHeader__selector-item--header'>{section.name}</h4>

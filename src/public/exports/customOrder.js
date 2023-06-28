@@ -14,7 +14,7 @@ const customOrder = {
             caption: 'Custom 60g Packaging with option for custom label **',
             cost: 4,
             image: custom60g,
-            defaultValue: '50',
+            defaultValue: '0',
             maxValue: '800',
             discount100:{
                 amount: 0.5,

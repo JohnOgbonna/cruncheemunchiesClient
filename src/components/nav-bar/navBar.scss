@@ -27,12 +27,19 @@ body {
     width: 100%;
     justify-content: space-between;
     flex-direction: column;
+    @include mobile{
+        padding-top: 1rem;
+    }
 
     &__line1 {
         display: flex;
         align-items: center;
         width: 100%;
         justify-content: space-between;
+
+        @include mobile {
+            overflow-x: scroll;
+        }
     }
 
     @include tablet {
@@ -58,7 +65,6 @@ body {
 
         margin-left: .5rem;
         font-size: 28px;
-
     }
 
     &__Container {
@@ -68,12 +74,14 @@ body {
         overflow-x: scroll;
         padding: 0 1rem;
         width: 100%;
-        box-sizing: border-box;
         max-width: 1280px;
         margin: 0;
         height: fit-content;
         align-items: center;
         text-align: left;
+
+
+
 
         @include mobile {
             padding: 0 8px;
@@ -83,15 +91,78 @@ body {
             width: 55%;
         }
     }
-    &__order{
-        padding-left: 1rem;
+
+    &__order {
+        padding-left: .5rem;
         padding-top: .5rem;
-       &-section{
-        &--header{
-            margin: .5rem 0;
-            font-size: 12px;
+        padding-right: .5rem;
+        max-height: 1000px;
+        transition: max-height 0.4s;
+
+        &Hidden{
+            transition: max-height 0.4s;
+            max-height: 0px;
+            padding: 0;
+            margin: 0;
         }
-       }
+
+        &-section {
+            display: flex;
+            align-items: center;
+            width: 60%;
+            max-width: 380px;
+            justify-content: space-between;
+            border-bottom: 1px solid white;
+            max-height: 500px;
+            transition: max-height 3s;
+     
+            &Hidden{
+                height: 0px;
+                margin: 0;
+                overflow: hidden;
+                max-height: 0;
+                transition: max-height 0.5s;
+              
+            }
+            @include mobile{
+                width: 100%;
+            }
+            &:last-child{
+                margin-bottom: .6rem;
+            }
+            
+            &--header, &--price {
+                margin: .5rem 0;
+                font-size: 12px;
+                width: 40%;
+            }
+            &--price{
+                width: 100%;
+                margin-right: .5rem;
+            }
+            &--checkout{
+                width: 60%;
+                display: flex;
+                align-items: center;
+            }
+            &--button{
+                @include alternate_background_color;
+                font-weight: bolder;
+                border: 2px solid $default-text-color;
+                color: $default-text-color;
+                border-radius: 12px;
+                font-size: 12px;
+                &:hover{
+                    scale: 1.05;
+                    transition: 0.1s ease-in all;
+                    text-decoration: underline;
+                }
+            }
+            &--remove{
+                height: 1.2rem;
+                margin-left: .5rem;
+            }
+        }
     }
 }
 
@@ -108,8 +179,6 @@ a {
         margin: 1rem 0;
         font-size: 13px;
         width: 25%;
-
-
         height: fit-content;
         margin: 0;
 
@@ -122,18 +191,16 @@ a {
             }
         }
 
-
         &-name {
             width: 100%;
             text-align: center;
             margin: 0;
 
             @include mobile {
-                font-size: 12px;
+                font-size: 13px;
                 text-align: center;
 
             }
-
         }
 
         list-style: none;
@@ -144,4 +211,5 @@ a {
 a {
     text-decoration: inherit;
     color: inherit;
+
 }

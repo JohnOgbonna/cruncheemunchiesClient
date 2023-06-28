@@ -1,39 +1,40 @@
 import standardPackaging from "../../public/exports/standardPackaging";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import "./orders.scss"
 import { Order } from '../../App';
-import { useContext } from "react";
+import { formatCash } from "../../public/exports/functions";
 
 
 function StandardOrder() {
     const [order, setOrder] = useContext(Order);
     const [added, setAdded] = useState({})
     function updateOrder(name, quantity, description, cost) {
-        if(order.standardOrder &&(+quantity > 0 || order.standardOrder[name])){
-            if(quantity > 0){
-            setOrder({
-            ...order,
-            standardOrder: {
-                ...order.standardOrder,
-                [name]: {
-                    ...order.standardOrder.name,
-                    'amount': quantity,
-                    'description': description,
-                    'cost': cost,
-                    'totalCost': cost * quantity
-                }
+        if (order.standardOrder && (+quantity > 0 || order.standardOrder[name])) {
+            if (quantity > 0) {
+                setOrder({
+                    ...order,
+                    standardOrder: {
+                        ...order.standardOrder,
+                        [name]: {
+                            ...order.standardOrder.name,
+                            'amount': + quantity,
+                            'description': description,
+                            'cost': cost,
+                            'totalCost': cost * quantity
+                        }
+                    }
+
+                })
             }
-            
-        })}
-        else{
-            let orderPlaceHolder = order.standardOrder
-            delete(orderPlaceHolder[name])
-            setOrder({
-                ...order,
-                standardOrder: orderPlaceHolder
-            })
+            else {
+                let orderPlaceHolder = order.standardOrder
+                delete (orderPlaceHolder[name])
+                setOrder({
+                    ...order,
+                    standardOrder: orderPlaceHolder
+                })
+            }
         }
-    }
     }
     function setSizeAdded(name, value) {
         setAdded({
@@ -52,10 +53,10 @@ function StandardOrder() {
                     standardPackaging.map(packaging => {
                         return (
                             <div className='StandardOrder__card'>
-                                <img className='StandardOrder__card-image' src={packaging.image} alt={packaging.name} loading = 'lazy'/>
+                                <img className='StandardOrder__card-image' src={packaging.image} alt={packaging.name} loading='lazy' />
                                 <div className='StandardOrder__card-text'>
                                     <p className='StandardOrder__card-text--description'>{packaging.description}</p>
-                                    <h3 className='StandardOrder__card-text--cost'>{`$${packaging.cost}.00`}</h3>
+                                    <h3 className='StandardOrder__card-text--cost'>{formatCash(packaging.cost)}</h3>
                                 </div>
                                 <form className='StandardOrder__card-quantity'
                                     onSubmit={e => {
@@ -65,7 +66,7 @@ function StandardOrder() {
                                             setSizeAdded(packaging.name, true)
                                         }
                                     }}
-                                    onChange = {e=>{setAdded(false)}}
+                                    onChange={e => { setAdded(false) }}
                                 >
                                     <label className='StandardOrder__card-quantity--label'>Quantity</label>
                                     <input className='StandardOrder__card-quantity--input'
@@ -80,7 +81,7 @@ function StandardOrder() {
                                         className='StandardOrder__card-quantity--button'
                                         type='submit'
                                     >
-                                        {added[packaging.name] ? 'Added!' : 'Add to order request!'}
+                                        {added[packaging.name] && order.standardOrder && order.standardOrder[packaging.name] ? 'Added!' : 'Add to order request!'}
                                     </button>
                                 </form>
                             </div>
