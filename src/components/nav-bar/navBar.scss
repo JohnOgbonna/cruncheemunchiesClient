@@ -5,13 +5,9 @@
 body {
     background-color: rgb(251, 246, 235);
     color: rgb(90, 70, 33);
-
-    @include mobile {
-        padding-bottom: 130px;
-    }
-
+    padding-bottom: 200px;
     @include tablet {
-        padding: 0;
+        padding-bottom: 2rem;
 
     }
 }
@@ -27,9 +23,7 @@ body {
     width: 100%;
     justify-content: space-between;
     flex-direction: column;
-    @include mobile{
-        padding-top: 1rem;
-    }
+   
 
     &__line1 {
         display: flex;
@@ -135,6 +129,12 @@ body {
                 margin: .5rem 0;
                 font-size: 12px;
                 width: 40%;
+                transition: all ease-in-out 0.3s;
+                &:hover{
+                    scale: 1.03;
+                    text-decoration: underline;
+                    transition: all ease-in-out 0.3s;
+                }
             }
             &--price{
                 width: 100%;
@@ -144,6 +144,10 @@ body {
                 width: 60%;
                 display: flex;
                 align-items: center;
+                &:hover{
+                    scale: 1.03;
+                    transition: all ease-in-out 0.3s;
+                }
             }
             &--button{
                 @include alternate_background_color;
@@ -211,5 +215,4 @@ a {
 a {
     text-decoration: inherit;
     color: inherit;
-
 }

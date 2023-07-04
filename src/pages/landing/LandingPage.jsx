@@ -1,3 +1,4 @@
+import React from 'react';
 import Paragraph from "../../components/paragraphs/paragraph";
 import "./Landing_page_styles.scss";
 function LandingPage() {

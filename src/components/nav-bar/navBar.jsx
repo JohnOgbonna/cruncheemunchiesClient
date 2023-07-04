@@ -1,16 +1,16 @@
 import './navBar.scss'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Order } from '../../App';
-import { useContext } from 'react';
-import { useState } from 'react';
-import { useEffect } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { formatCash } from '../../public/exports/functions';
 import { icons } from '../../public/exports/icons';
+import React from 'react';
 
 function NavBar(props) {
     const [order, setOrder] = useContext(Order)
     const [selections, setSelections] = useState([])
     const [totalUnits, setTotalUnits] = useState({})
+    const navigate = useNavigate()
     useEffect(() => {
         let standardOrderselections = []
         let customOrderselections = []
@@ -146,6 +146,7 @@ function NavBar(props) {
     ]
 
     return (
+        
         <div className='NavBar'>
             <div className='NavBar__line1'>
                 <h1 className="NavBar__Header">{'Crunchee Munchies'.toLocaleUpperCase()}</h1>
@@ -167,9 +168,13 @@ function NavBar(props) {
                     return (
 
                         <div className={`NavBar__order-section${selection.orders.length < 1 ? 'Hidden' : ''}`}>
-                            <h4 className='NavBar__order-section--header'>{selection.description}</h4>
+                            <h4 className='NavBar__order-section--header'
+                            onClick={()=>navigate(selection.link)}
+                            >{selection.description}</h4>
                             <div className='NavBar__order-section--checkout'>
-                                <h4 className='NavBar__order-section--price'>{`${totalUnits[selection.code]} Total items = ${formatCash(getOrderTotals(selection.orders))}`}</h4>
+                                <h4 className='NavBar__order-section--price'
+                                onClick={()=>navigate(selection.link)}
+                                >{`${totalUnits[selection.code]} Total items = ${formatCash(getOrderTotals(selection.orders))}`}</h4>
                                 <button className='NavBar__order-section--button' type='button'>Order</button>
                                 <img className='NavBar__order-section--remove'
                                     src={icons.close}

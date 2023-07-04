@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, React } from "react";
 import sageMeadows from '../../public/images/stores/sage-meadows.jpeg'
 import africanChoice from '../../public/images/stores/african choice.jpeg';
 import gimsap from '../../public/images/stores/gimsap.png';

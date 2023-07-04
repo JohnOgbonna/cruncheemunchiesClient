@@ -1,5 +1,5 @@
 import './orders.scss';
-import { useState } from 'react';
+import { useState, React } from 'react';
 import CustomOrderDetails from './customOrder_subsections/customOrder_details';
 import CustomOrderSelection from './customOrder_subsections/customOrderSelection';
 import {useParams, useNavigate} from 'react-router-dom'

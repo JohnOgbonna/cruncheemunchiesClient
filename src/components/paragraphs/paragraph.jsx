@@ -3,6 +3,8 @@ import chin_chin1 from '../../public/images/chin_chin1.jpeg'
 import paragraphs from '../../text/landing_page_paragraphs.json'
 import chin_chin2 from '../../public/images/chin_chin2.jpeg'
 import chin_chin3 from '../../public/images/chin_chin3.png'
+import React from 'react';
+
 let images = [
   chin_chin1,
   chin_chin3,

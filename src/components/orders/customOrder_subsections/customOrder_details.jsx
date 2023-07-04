@@ -1,5 +1,6 @@
 import '../orders.scss'
 import customOrder from '../../../public/exports/customOrder'
+import React from 'react';
 
 function CustomOrderDetails() {
     return (

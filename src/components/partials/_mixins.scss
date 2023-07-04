@@ -32,13 +32,13 @@
   border-radius: 6px;
   margin-bottom: 2rem;
 
-  &:hover {
-      scale: 1.08;
-      transition: all ease-in-out 0.2s;
-  }
 
   @include tablet {
       margin-right: 2rem;
+      &:hover {
+        scale: 1.08;
+        transition: all ease-in-out 0.2s;
+    }
 
   }
 
@@ -103,5 +103,12 @@
           background-color: orange;
           font-weight: bold;
       }
+  }
+}
+@mixin text-hover{
+  &:hover{
+    scale: (1.03);
+    transition: all 0.3s;
+    text-decoration: underline;
   }
 }

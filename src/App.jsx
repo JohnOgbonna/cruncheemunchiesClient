@@ -6,7 +6,7 @@ import OrderButton from './components/requestOrderButton/orderButton';
 import WhereTobuy from './pages/where_to_buy/whereToBuy';
 import OrderPage from './pages/order/orderpage';
 import React, { useState, useEffect } from 'react';
-import CheckoutPage from './pages/request_order/RequestOrderPage';
+import SendRequestPage from './pages/send_request/SendRequestPage';
 
 export const Order = React.createContext();
 
@@ -39,7 +39,9 @@ function App() {
             <Route path="order" element={<OrderPage />} />
             <Route path={"order/:section/"} element={<OrderPage />} />
             <Route path={"order/:section/:subsection"} element={<OrderPage />} />
-            <Route path="checkout" element={<CheckoutPage />} />
+            <Route path="send-order-request" element={<SendRequestPage/>} />
+            <Route path="send-order-request/:section" element={<SendRequestPage />} />
+            <Route path="send-order-request/:section/:subsection" element={<SendRequestPage />} />
           </Routes>
         </Order.Provider>
       </div>

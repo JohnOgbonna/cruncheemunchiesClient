@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useContext } from 'react';
+import { useState, useEffect, useRef, useContext, React } from 'react';
 import '../orders.scss'
 import customOrder from '../../../public/exports/customOrder';
 import { Order } from '../../../App';
@@ -11,7 +11,7 @@ function CustomOrderSelection() {
     const [quantity, setQuantity] = useState({})
     const [labelSelected, setLabelSelected] = useState({})
 
-    // setLabeledStatus
+    // set Labeled Status
     useEffect(() => {
         let labelled = {}
         customOrder.sizes.forEach(size => {
@@ -20,6 +20,12 @@ function CustomOrderSelection() {
             }
         })
         setLabelSelected(labelled)
+        //set Added status
+        let addedPlaceholder = {}
+        Object.keys(order.customOrder).forEach(order=>{
+            addedPlaceholder[order] = true
+        })
+        setAdded(addedPlaceholder)
     }, [])
 
     function updateOrder(name, quantity, caption, cost, label, discount) {

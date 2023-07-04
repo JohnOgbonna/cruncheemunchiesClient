@@ -1,5 +1,5 @@
 import standardPackaging from "../../public/exports/standardPackaging";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect, React } from "react";
 import "./orders.scss"
 import { Order } from '../../App';
 import { formatCash } from "../../public/exports/functions";
@@ -36,6 +36,14 @@ function StandardOrder() {
             }
         }
     }
+    useEffect(()=>{
+        let addedPlaceholder = {}
+        Object.keys(order.standardOrder).forEach(order=>{
+            addedPlaceholder[order] = true
+        })
+        setAdded(addedPlaceholder)
+    }, [])
+
     function setSizeAdded(name, value) {
         setAdded({
             ...added,
@@ -81,7 +89,7 @@ function StandardOrder() {
                                         className='StandardOrder__card-quantity--button'
                                         type='submit'
                                     >
-                                        {added[packaging.name] && order.standardOrder && order.standardOrder[packaging.name] ? 'Added!' : 'Add to order request!'}
+                                        {(added[packaging.name] && order.standardOrder && order.standardOrder[packaging.name]) ? 'Added!' : 'Add to order request!'}
                                     </button>
                                 </form>
                             </div>
