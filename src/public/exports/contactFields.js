@@ -41,8 +41,8 @@ export const contactFields = {
     },
     message: {
         id: 'message',
-        name: 'Send a message to us, include any notes or questions/concerns',
-        type: 'textArea',
+        name: 'Notes (include any  questions/concerns)',
+        type: 'textarea',
         inputType: 'editor',
         mandatory: false,
         tag: 'textArea',

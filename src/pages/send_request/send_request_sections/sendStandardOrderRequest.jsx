@@ -7,12 +7,13 @@ import { formatCash } from '../../../public/exports/functions';
 import { icons } from '../../../public/exports/icons';
 import OrderRequestContact from './sendOrderRequestContact';
 import { constants } from '../../../public/exports/constants';
+import {useNavigate} from 'react-router-dom'
 
 function SendStandardOrderRequest(props) {
     const [order, setOrder] = useContext(Order)
     const [editing, setEditing] = useState({})
     const [quantity, setQuantity] = useState({})
-
+    const navigate = useNavigate()
 
     useEffect(() => {
         let quantityPlaceholder = {}
@@ -20,7 +21,7 @@ function SendStandardOrderRequest(props) {
             quantityPlaceholder[item] = order[props.section.name][item].amount
         })
         setQuantity(quantityPlaceholder)
-    }, [])
+    }, [], [props.section])
 
     function orderTotal() {
         let totalItems = 0
@@ -47,6 +48,8 @@ function SendStandardOrderRequest(props) {
         const labelCost = order[props.section.name][section].label ?
             constants.labelPrice : 0
         if (amount < 100) discount = false
+        else discount = true
+        if(!amount) return order[props.section.name][section].totalCost
         if (!discount) return (order[props.section.name][section].cost + labelCost) * amount
         else {
             return ((order[props.section.name][section].cost + labelCost - constants[`discount${section}`]) * amount)
@@ -93,6 +96,10 @@ function SendStandardOrderRequest(props) {
                 <div className='requestOrderForm__orderDetails'>
                     <h3 className='requestOrderForm__orderDetails-header'>Order information</h3>
                     <h4 className='requestOrderForm__orderDetails-quantity'>{`${orderTotal().totalItems} Items Selected, Total = ${formatCash(orderTotal().totalCost)}`}</h4>
+                    <button className='requestOrderForm__orderDetails-more'
+                    type = 'button'
+                    onClick={e=>{navigate(props.section.link)}}
+                    >Order More!</button>
                     <div className='requestOrderForm__orderDetails-container'>
                         {
                             Object.keys(order[props.section.name]).map(item => {
@@ -133,11 +140,11 @@ function SendStandardOrderRequest(props) {
                                                     />
 
 
-                                                    <h5 className='requestOrderForm__orderDetails-edit--price'>{formatCash(calculateCost(item, quantity[item], orderObj.discountAdded))}</h5>
+                                                    <h5 className='requestOrderForm__orderDetails-edit--price'>{formatCash(calculateCost(item, (quantity[item] ), orderObj.discountAdded))}</h5>
                                                     <h5
                                                         className='requestOrderForm__orderDetails-edit--submit'
                                                         onClick={() => {
-                                                            if(quantity[item] > 0){
+                                                            if(quantity[item] > 0 || (quantity[item] !== 0 &&orderObj.totalCost > 0)){
                                                             submitEdit(item, quantity[item])
                                                         }
                                                         }}
@@ -170,6 +177,7 @@ function SendStandardOrderRequest(props) {
                         }
                     </div>
                 </div>
+               
                 <OrderRequestContact
                     section={props.section}
                 />

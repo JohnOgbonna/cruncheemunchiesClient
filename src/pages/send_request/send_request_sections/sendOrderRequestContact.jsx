@@ -44,7 +44,7 @@ function OrderRequestContact(props) {
     }, [inputs])
 
     return (
-        <form
+        <form className='contactForm'
         onSubmit={e => {
             e.preventDefault()
             console.log(e)
@@ -70,8 +70,6 @@ function OrderRequestContact(props) {
 
                                             }
                                             }
-                                            // defaultValue={inputs[field] ? inputs[field] : ''}
-                                            // defaultChecked={inputs[field] ? inputs[field] : false}
                                         />
                                         <label
                                             htmlFor={fieldObj.id}
@@ -83,6 +81,31 @@ function OrderRequestContact(props) {
                                 </div>
                             )
 
+                        }
+                        if (fieldObj.type === 'textarea'){
+                            return(
+                                <div className='OrderRequestContact__fields-wrapper'>
+                                <div className={`OrderRequestContact__fields-input`}>
+                                    <textarea
+                                        className={`OrderRequestContact__fields-${fieldObj.tag}`}
+                                        id={fieldObj.id}
+                                        type={fieldObj.inputType}
+                                        onChange={e => {
+                                            updateField(field, (e.target.type !== 'checkbox' ? e.target.value : e.target.checked))
+                                            console.log(inputs)
+
+                                        }
+                                        }
+                                    />
+                                    <label
+                                        htmlFor={fieldObj.id}
+                                        className={`OrderRequestContact__fields-label`}
+                                    >
+                                        {fieldObj.name}
+                                    </label>
+                                </div>
+                            </div>
+                            )
                         }
                     })
 
@@ -149,7 +172,7 @@ function OrderRequestContact(props) {
                         </div> : null
                 }
             </div>
-            <button type='submit'>Send order request</button>
+            <button type='submit' className='submitButton'>Send order request</button>
         </form>
     )
 }

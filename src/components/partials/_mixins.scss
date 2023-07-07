@@ -105,6 +105,16 @@
       }
   }
 }
+@mixin button-styles {
+  border: 1px solid orange;
+  margin-left: 1rem;
+  color: white;
+  border-radius: 15px;
+  padding: 3px 5px;
+  background-color: orange;
+  font-weight: bold;
+  border: 1px solid $default-text-color;
+}
 @mixin text-hover{
   &:hover{
     scale: (1.03);

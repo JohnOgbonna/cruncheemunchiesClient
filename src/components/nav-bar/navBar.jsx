@@ -1,16 +1,17 @@
 import './navBar.scss'
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation} from 'react-router-dom';
 import { Order } from '../../App';
 import { useContext, useState, useEffect } from 'react';
 import { formatCash } from '../../public/exports/functions';
 import { icons } from '../../public/exports/icons';
 import React from 'react';
 
-function NavBar(props) {
+function NavBar() {
     const [order, setOrder] = useContext(Order)
     const [selections, setSelections] = useState([])
     const [totalUnits, setTotalUnits] = useState({})
     const navigate = useNavigate()
+    const location = useLocation()
     useEffect(() => {
         let standardOrderselections = []
         let customOrderselections = []
@@ -46,13 +47,15 @@ function NavBar(props) {
                 description: 'Standard Order',
                 orders: standardOrderselections,
                 code: 'standard',
-                link: '/order/standard'
+                link: '/order/standard',
+                requestLink: '/send-order-request/standard'
             },
             {
                 description: 'Custom Event Order',
                 orders: customOrderselections,
                 code: 'custom',
-                link: '/order/event/order'
+                link: '/order/event',
+                requestLink: '/send-order-request/event'
             },
         ])
         setTotalUnits({
@@ -70,7 +73,6 @@ function NavBar(props) {
         })
     }
 
-
     function getOrderTotals(orderSelections) {
         let totalCost = 0;
         orderSelections.forEach(order => {
@@ -81,7 +83,6 @@ function NavBar(props) {
     function emptyOrder() {
         return Object.keys(order.standardOrder).length > 0 || Object.keys(order.customOrder).length > 0 ? false : true
     }
-
 
     const sections = [
         {
@@ -144,7 +145,7 @@ function NavBar(props) {
             ]
         },
     ]
-
+    console.log(location)
     return (
         
         <div className='NavBar'>
@@ -163,7 +164,7 @@ function NavBar(props) {
                 </ul>
             </div>
 
-            <div className={`NavBar__order${!emptyOrder() ? '': 'hidden' }`}> {selections.length > 1 ?
+            <div className={`NavBar__order${!emptyOrder() && location.pathname !== '/send-order-request' ? '': 'hidden' }`}> {selections.length > 1 ?
                 selections.map(selection => {
                     return (
 
@@ -175,7 +176,9 @@ function NavBar(props) {
                                 <h4 className='NavBar__order-section--price'
                                 onClick={()=>navigate(selection.link)}
                                 >{`${totalUnits[selection.code]} Total items = ${formatCash(getOrderTotals(selection.orders))}`}</h4>
-                                <button className='NavBar__order-section--button' type='button'>Order</button>
+                                <button className='NavBar__order-section--button' type='button'
+                                onClick={()=>{navigate(selection.requestLink)}}
+                                >Order</button>
                                 <img className='NavBar__order-section--remove'
                                     src={icons.close}
                                     onClick={() => removeOrder(selection.code)}
@@ -190,6 +193,5 @@ function NavBar(props) {
         </div >
 
     )
-
 }
 export default NavBar
