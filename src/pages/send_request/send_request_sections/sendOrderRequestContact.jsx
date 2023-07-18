@@ -7,7 +7,7 @@ import { CountryDropdown, RegionDropdown, CountryRegionData } from 'react-countr
 
 
 function OrderRequestContact(props) {
-    const order = useContext(Order)
+    const [order] = useContext(Order)
     const fields = Object.keys(contactFields)
     const addresses = Object.keys(addressFields)
     const [inputs, setInputs] = useState(
@@ -17,7 +17,7 @@ function OrderRequestContact(props) {
     )
     const [location, setLocation] = useState({
         country: 'Canada',
-        'Province/State': '',
+        region: '',
     })
 
 
@@ -43,12 +43,26 @@ function OrderRequestContact(props) {
 
     }, [inputs])
 
+    
+    const onSubmitClick = (e)=>{
+        e.preventDefault()
+        props.submitOrder(
+            props.section.name,
+            order[props.section.name],
+            e.target.firstName.value,
+            e.target.lastName.value,
+            e.target.email.value,
+            e.target.phone.value,
+            e.target.message.value,
+            e.target.needsDelivery.checked,
+            location.country,
+            location.region,
+        )
+    }
+    
     return (
         <form className='contactForm'
-        onSubmit={e => {
-            e.preventDefault()
-            console.log(e)
-        }}
+        onSubmit={(e)=>onSubmitClick(e)}
         >
             <h3 className='OrderRequestContact__header'>Contact Information</h3>
             <div className='OrderRequestContact__fields'>
@@ -66,8 +80,6 @@ function OrderRequestContact(props) {
                                             type={fieldObj.inputType}
                                             onChange={e => {
                                                 updateField(field, (e.target.type !== 'checkbox' ? e.target.value : e.target.checked))
-                                                console.log(inputs)
-
                                             }
                                             }
                                         />
@@ -132,11 +144,11 @@ function OrderRequestContact(props) {
                                 <label className='OrderRequestContact__fields-label'>Region</label>
                                 <RegionDropdown
                                     country={location.country}
-                                    value={location['Province/State']}
+                                    value={location.region}
                                     onChange={(val) => {
                                         setLocation({
                                             ...location,
-                                            ['Province/State']: val
+                                           region: val
                                         })
                                     }} />
 
@@ -172,7 +184,8 @@ function OrderRequestContact(props) {
                         </div> : null
                 }
             </div>
-            <button type='submit' className='submitButton'>Send order request</button>
+            <button type='submit' className='submitButton'
+            >Send order request</button>
         </form>
     )
 }

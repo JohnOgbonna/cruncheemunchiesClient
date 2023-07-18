@@ -66,7 +66,6 @@ function NavBar() {
     }, [order], [])
 
     function removeOrder(section) {
-        console.log(order)
         setOrder({
             ...order,
             [`${section}Order`]: {}
@@ -145,7 +144,6 @@ function NavBar() {
             ]
         },
     ]
-    console.log(location)
     return (
         
         <div className='NavBar'>

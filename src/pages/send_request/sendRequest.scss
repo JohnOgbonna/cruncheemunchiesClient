@@ -84,8 +84,8 @@
             &-wrapper {
                 display: flex;
                 align-items: center;
-              
-
+                width: 100%;
+                max-width: none;
                 @include mobile {
                     max-width: none;
                 }
@@ -98,6 +98,9 @@
                 width: 35%;
                 margin-top: .5rem;
                 @include text-hover;
+                @include tablet{
+                    min-width: 110px;
+                }
 
             }
 
@@ -262,9 +265,11 @@ select {
         &-labelWide {
             width: inherit;
             max-width: 500px;
+            font-size: .8rem;
+            font-weight: bold;
 
             @include tablet {
-                max-width: 300px;
+                max-width: none;
             }
 
         }

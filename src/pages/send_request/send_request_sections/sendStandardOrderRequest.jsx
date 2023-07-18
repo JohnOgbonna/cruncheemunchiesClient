@@ -47,7 +47,7 @@ function SendStandardOrderRequest(props) {
     function calculateCost(section, amount, discount) {
         const labelCost = order[props.section.name][section].label ?
             constants.labelPrice : 0
-        if (amount < 100) discount = false
+        if (amount < 100 || props.section.name === 'standardOrder') discount = false
         else discount = true
         if(!amount) return order[props.section.name][section].totalCost
         if (!discount) return (order[props.section.name][section].cost + labelCost) * amount
@@ -59,8 +59,7 @@ function SendStandardOrderRequest(props) {
         const labelCost = order[props.section.name][section].label ?
             constants.labelPrice : 0
         //set discount if amount >= 100
-        const discount = 100 > amount ? false : true
-        console.log(labelCost)
+        const discount = 100 > amount || props.section.name === 'standardOrder'? false : true
         setOrder({
             ...order,
             [props.section.name]: {
@@ -72,7 +71,7 @@ function SendStandardOrderRequest(props) {
                     'totalCost': discount ? (order[props.section.name][section].cost - constants[`discount${section}`] + labelCost) * amount :
                         amount * (order[props.section.name][section].cost + labelCost),
 
-                    'discountAdded': discount,
+                    'discountAdded': props.section.name === 'customOrder' ?discount : false,
                     //modify discounted price
                     'discountedPrice': discount ? order[props.section.name][section].cost - constants[`discount${section}`] : order[props.section.name][section].cost
                 }
@@ -110,7 +109,7 @@ function SendStandardOrderRequest(props) {
                                         <h5 className='requestOrderForm__orderDetails-info'>{`${item} chin-chin pack @ ${formatCash(orderObj.discountedPrice ?
                                             orderObj.discountedPrice :
                                             orderObj.cost
-                                        )} each, ${orderObj.label ? formatCash(constants.labelPrice) : ''} ${orderObj.label ? `label charge` : 'no label selected'}
+                                        )} each ${orderObj.label ? formatCash(constants.labelPrice) : ''} ${orderObj.label ? `label charge` : props.section.name === 'customOrder'? 'no label selected' : ''}
                                          ${orderObj.discountAdded ? ', discount added' : ''}
                                          `
                                         }</h5>
@@ -180,6 +179,7 @@ function SendStandardOrderRequest(props) {
                
                 <OrderRequestContact
                     section={props.section}
+                    submitOrder={props.submitOrder}
                 />
             </div>
         </div>

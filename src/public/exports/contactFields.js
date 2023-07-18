@@ -31,14 +31,6 @@ export const contactFields = {
         mandatory: true,
         tag: 'text',
     },
-    needsDelivery: {
-        id: 'needsDelivery',
-        name: 'Do you require delivery? (delivery charge will apply) Pickup in Northwest Calgary at no extra charge',
-        type: 'input',
-        inputType: 'checkbox',
-        mandatory: true,
-        tag: 'checkbox',
-    },
     message: {
         id: 'message',
         name: 'Notes (include any  questions/concerns)',
@@ -47,6 +39,15 @@ export const contactFields = {
         mandatory: false,
         tag: 'textArea',
     },
+    needsDelivery: {
+        id: 'needsDelivery',
+        name: 'Do you require delivery? (delivery charge will apply at up to $35 within Calgary) Pickup in Northwest Calgary at no extra charge. For orders outisde Calgary, you will be resposible for courier shipping fees',
+        type: 'input',
+        inputType: 'checkbox',
+        mandatory: false,
+        tag: 'checkbox',
+    },
+   
 }
 
 export const addressFields= {
@@ -63,7 +64,7 @@ export const addressFields= {
         name: 'Postal / Zip Code',
         type: 'input',
         inputType: 'text',
-        mandatory: true,
+        mandatory: false,
         tag: 'text',
     },
     city: {
