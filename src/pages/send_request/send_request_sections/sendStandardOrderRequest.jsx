@@ -7,7 +7,8 @@ import { formatCash } from '../../../public/exports/functions';
 import { icons } from '../../../public/exports/icons';
 import OrderRequestContact from './sendOrderRequestContact';
 import { constants } from '../../../public/exports/constants';
-import {useNavigate} from 'react-router-dom'
+import {useNavigate} from 'react-router-dom';
+import {SendOrderRequestError} from './sendOrderRequestError'
 
 function SendStandardOrderRequest(props) {
     const [order, setOrder] = useContext(Order)
@@ -180,10 +181,10 @@ function SendStandardOrderRequest(props) {
                 <OrderRequestContact
                     section={props.section}
                     submitOrder={props.submitOrder}
+                    errors = {props.errors}
                 />
             </div>
         </div>
     )
-
 }
 export default SendStandardOrderRequest

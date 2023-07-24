@@ -8,6 +8,7 @@ import { useEffect } from 'react'
 import { contactFields, addressFields } from '../../public/exports/contactFields'
 import axios from 'axios'
 import { constants } from '../../public/exports/constants'
+import SendOrderRequestError from './send_request_sections/sendOrderRequestError'
 
 const sections = {
     standardOrder: {
@@ -39,6 +40,7 @@ function SendRequestPage() {
             sections.customOrder :
             sections.standardOrder
     )
+    const [errors, setErrors] = useState([])
 
     useEffect(() => {
         if (params.section === 'event') setSelection(sections.customOrder)
@@ -46,8 +48,9 @@ function SendRequestPage() {
     }, [params])
 
     let sectionsList = Object.keys(sections)
-    let errorList = []
+
     function validateFields(body, addresses) {
+        let errorList = []
         Object.keys(contactFields).forEach(field => {
             if (contactFields[field].mandatory && (!body[field] || body[field] === '')) {
                 errorList.push(field)
@@ -57,13 +60,10 @@ function SendRequestPage() {
             if (body.needsDelivery && (addressFields[field].mandatory && (addresses[field] === '' || !addresses[field]))) {
                 errorList.push(field)
             }
-
         })
-        errorList.forEach(field => {
-            console.log(`${field} is missing`)
-        })
-        return errorList
-        
+        setErrors(errorList)
+        if (errorList.length > 0) return false
+        else return true
     }
 
     function submitOrder(type, order, firstName, lastName, email, phone, message, needsDelivery, country, region, postalCode, totalCost) {
@@ -85,16 +85,15 @@ function SendRequestPage() {
             addressFields: addressess,
             totalCost: totalCost
         }
-        validateFields(body, addressess)
-        // if(validateFields(body, addressess) < 1){
-        // 
-        axios.post(`${constants.serverLink}`, body)
-        .then(res=>{
-            alert('form submitted')
-        })
-        .catch(err=>{
-            alert(err)
-        })
+        if (validateFields(body, addressess)) {
+            axios.post(`${constants.serverLink}`, body)
+                .then(res => {
+                    alert('form submitted')
+                })
+                .catch(err => {
+                    alert(err)
+                })
+        }
     }
 
 
@@ -123,15 +122,18 @@ function SendRequestPage() {
                     })
                 }
             </section>
+
             <section className='SendRequestForm'>
 
                 <SendStandardOrderRequest
                     section={selection}
                     submitOrder={submitOrder}
+                    errors={errors}
                 />
 
             </section>
-        </div>)
+        </div>
+        )
 
 }
 export default SendRequestPage

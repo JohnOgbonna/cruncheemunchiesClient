@@ -1,14 +1,14 @@
-import { useEffect, useState, React } from "react";
+import { useState, React } from "react";
 import sageMeadows from '../../public/images/stores/sage-meadows.jpeg'
 import africanChoice from '../../public/images/stores/african choice.jpeg';
 import gimsap from '../../public/images/stores/gimsap.png';
 import mamaK from '../../public/images/stores/mama k.png';
 import './whereToBuy.scss'
-
+import { icons } from "../../public/exports/icons";
 
 
 function WhereTobuy(props) {
-    let [displayStore, changeDisplayStore] = useState("")
+    let [displayStore, changeDisplayStore] = useState({})
     const stores = [
         {
             name: 'Sage Meadows Market African Store',
@@ -45,9 +45,10 @@ function WhereTobuy(props) {
         <div className="whereToBuy">
             <h2 className="whereToBuyHeader">Where to Buy</h2>
             <p className="whereToBuyDescriptor">Ask for Crunchee Munchies at these Calgary Locations!</p>
+            <p className="whereToBuyDescriptor">Select to show on map!</p>
             <div className="mapCardContainer">
                 {
-                    stores.map((store, index) => {
+                    stores.map((store) => {
                         return (
                             <div className="mapCard" onClick={() => {
                                 changeDisplayStore(store)
@@ -63,8 +64,16 @@ function WhereTobuy(props) {
                 }
             </div>
             {displayStore.embededMap ?
-            <div className="mapFrameWrapper">
-                <iframe className="mapFrame" src={displayStore.embededMap || ""} width="600" height="450" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                <div className="mapFrameWrapper"
+                    onClick={(e) => {
+                        if (e.target === e.currentTarget) changeDisplayStore({})
+                    }
+                    }>
+                    <img className="mapFrameIcon" src={icons.close}
+                        onClick={(e) => {
+                            changeDisplayStore({})
+                        }} />
+                    <iframe className="mapFrame" src={displayStore.embededMap || ""} width="600" height="450" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
                 : null}
         </div>

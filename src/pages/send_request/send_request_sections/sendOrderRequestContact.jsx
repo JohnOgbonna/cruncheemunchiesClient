@@ -4,6 +4,7 @@ import { contactFields, addressFields } from '../../../public/exports/contactFie
 import { useEffect } from 'react'
 import { Order } from '../../../App'
 import { CountryDropdown, RegionDropdown, CountryRegionData } from 'react-country-region-selector';
+import SendOrderRequestError from './sendOrderRequestError'
 
 
 function OrderRequestContact(props) {
@@ -20,7 +21,6 @@ function OrderRequestContact(props) {
         region: '',
     })
 
-
     function updateField(field, value, address) {
         if (!address) {
             setInputs({
@@ -34,7 +34,7 @@ function OrderRequestContact(props) {
                 addressFields: {
                     ...inputs.addressFields,
                     [field]: value
-            }
+                }
             })
         }
     }
@@ -43,8 +43,8 @@ function OrderRequestContact(props) {
 
     }, [inputs])
 
-    
-    const onSubmitClick = (e)=>{
+
+    const onSubmitClick = (e) => {
         e.preventDefault()
         props.submitOrder(
             props.section.name,
@@ -59,12 +59,19 @@ function OrderRequestContact(props) {
             location.region,
         )
     }
-    
+
     return (
         <form className='contactForm'
-        onSubmit={(e)=>onSubmitClick(e)}
+            onSubmit={(e) => onSubmitClick(e)}
         >
             <h3 className='OrderRequestContact__header'>Contact Information</h3>
+            {
+                props.errors.length > 0 ?
+                        <SendOrderRequestError
+                            list={props.errors}
+                        />
+                    : null
+            }
             <div className='OrderRequestContact__fields'>
                 {
                     fields.map(field => {
@@ -75,7 +82,8 @@ function OrderRequestContact(props) {
                                 <div className='OrderRequestContact__fields-wrapper'>
                                     <div className={`OrderRequestContact__fields-input${fieldObj.inputType === 'checkbox' ? 'Check' : ''}`}>
                                         <input
-                                            className={`OrderRequestContact__fields-${fieldObj.tag}`}
+                                            className={`OrderRequestContact__fields-${fieldObj.tag}${props.errors.includes(field) ?'Error' : ''}`
+                                            }
                                             id={fieldObj.id}
                                             type={fieldObj.inputType}
                                             onChange={e => {
@@ -87,36 +95,36 @@ function OrderRequestContact(props) {
                                             htmlFor={fieldObj.id}
                                             className={`OrderRequestContact__fields-label${field === 'needsDelivery' ? 'Wide' : ''}`}
                                         >
-                                            {fieldObj.name}
+                                            {`${fieldObj.mandatory? '*' : ''}${fieldObj.name}`}
                                         </label>
                                     </div>
                                 </div>
                             )
 
                         }
-                        if (fieldObj.type === 'textarea'){
-                            return(
+                        if (fieldObj.type === 'textarea') {
+                            return (
                                 <div className='OrderRequestContact__fields-wrapper'>
-                                <div className={`OrderRequestContact__fields-input`}>
-                                    <textarea
-                                        className={`OrderRequestContact__fields-${fieldObj.tag}`}
-                                        id={fieldObj.id}
-                                        type={fieldObj.inputType}
-                                        onChange={e => {
-                                            updateField(field, (e.target.type !== 'checkbox' ? e.target.value : e.target.checked))
-                                            console.log(inputs)
+                                    <div className={`OrderRequestContact__fields-input`}>
+                                        <textarea
+                                            className={`OrderRequestContact__fields-${fieldObj.tag}`}
+                                            id={fieldObj.id}
+                                            type={fieldObj.inputType}
+                                            onChange={e => {
+                                                updateField(field, (e.target.type !== 'checkbox' ? e.target.value : e.target.checked))
+                                                console.log(inputs)
 
-                                        }
-                                        }
-                                    />
-                                    <label
-                                        htmlFor={fieldObj.id}
-                                        className={`OrderRequestContact__fields-label`}
-                                    >
-                                        {fieldObj.name}
-                                    </label>
+                                            }
+                                            }
+                                        />
+                                        <label
+                                            htmlFor={fieldObj.id}
+                                            className={`OrderRequestContact__fields-label`}
+                                        >
+                                            {fieldObj.name}
+                                        </label>
+                                    </div>
                                 </div>
-                            </div>
                             )
                         }
                     })
@@ -148,7 +156,7 @@ function OrderRequestContact(props) {
                                     onChange={(val) => {
                                         setLocation({
                                             ...location,
-                                           region: val
+                                            region: val
                                         })
                                     }} />
 
@@ -159,7 +167,7 @@ function OrderRequestContact(props) {
                                     return (
                                         <div className={`OrderRequestContact__fields-input${fieldObj.inputType === 'checkbox' ? 'Check' : ''}`}>
                                             <input
-                                                className={`OrderRequestContact__fields-${fieldObj.tag}`}
+                                                className={`OrderRequestContact__fields-${fieldObj.tag}${props.errors.includes(field) ?'Error' : ''}`}
                                                 id={fieldObj.id}
                                                 type={fieldObj.inputType}
                                                 onChange={e => {

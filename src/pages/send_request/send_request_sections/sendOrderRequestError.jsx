@@ -1,20 +1,30 @@
 import { useState } from 'react'
 import { contactFields, addressFields } from '../../../public/exports/contactFields'
 
-export default function SendOrderRequestError(props) {
+function SendOrderRequestError(props) {
 
-    <div className='SendOrderRequestError'>
-        <div className='SendOrderRequestErrorWrapper'>
-            {
-                props.errorList.map(err => {
-                    return (
-                        <div className='SendOrderRequestError__container'>
-                            <p className='SendOrderRequestError__notice'>{`*${contactFields[err].name ? contactFields[err].name : addressFields[err].name} is required!`}</p>
-                        </div>
-                    )
-                })
-            }
-        </div>
-    </div >
+    function errorField(field){
+        if(contactFields[field] && contactFields[field].name)
+        return contactFields[field].name
+        else if(addressFields[field] && addressFields[field].name)
+        return addressFields[field].name
+        else return ''
+    }
 
+
+    return (
+        <div className='SendOrderRequestError'>
+            <div className='SendOrderRequestErrorWrapper'>
+                {
+                    props.list.map(err => {
+                        return (
+                            <p className='SendOrderRequestError__notice'>{`*${errorField(err)} is required!`}</p>
+                        )
+                    })
+                }
+            </div>
+        </div >
+    )
 }
+
+export default SendOrderRequestError

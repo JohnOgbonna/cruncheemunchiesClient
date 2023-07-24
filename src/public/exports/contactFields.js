@@ -64,7 +64,7 @@ export const addressFields= {
         name: 'Postal / Zip Code',
         type: 'input',
         inputType: 'text',
-        mandatory: false,
+        mandatory: true,
         tag: 'text',
     },
     city: {

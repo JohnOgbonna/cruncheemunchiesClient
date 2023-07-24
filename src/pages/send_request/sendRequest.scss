@@ -67,9 +67,8 @@
                 margin-right: none;
                 max-width: 500px;
             }
-            @include desktop{
-               
-            }
+
+            @include desktop {}
 
             &-header {
                 margin-bottom: .5rem;
@@ -86,6 +85,7 @@
                 align-items: center;
                 width: 100%;
                 max-width: none;
+
                 @include mobile {
                     max-width: none;
                 }
@@ -98,7 +98,8 @@
                 width: 35%;
                 margin-top: .5rem;
                 @include text-hover;
-                @include tablet{
+
+                @include tablet {
                     min-width: 110px;
                 }
 
@@ -199,13 +200,17 @@ select {
 .OrderRequestContact {
     &__header {
         text-decoration: underline;
+        @include tablet{
+            text-align: center;
+        }
     }
 
     &__fields {
-        @include desktop{
+        @include desktop {
             display: flex;
             flex-direction: column;
         }
+
         &-input,
         &-inputCheck {
             display: flex;
@@ -220,7 +225,8 @@ select {
 
         }
 
-        &-text {
+        &-text,
+        &-textError {
             border: 0;
             border-bottom: 1px solid $default-text-color;
             background-color: inherit;
@@ -230,11 +236,19 @@ select {
             padding-bottom: 4px;
             font-weight: bold;
             color: $default-text-color;
-            @include desktop{
+            padding-left: .5rem;
+
+            @include desktop {
                 max-width: none;
             }
         }
-        &-textArea{
+
+        &-textError {
+            border: 1px solid red;
+            border-radius: 5px;
+        }
+
+        &-textArea {
             background-color: inherit;
             border-radius: 6px;
             max-width: 300px;
@@ -244,7 +258,8 @@ select {
             font-size: 1rem;
             margin-top: .5rem;
             height: 3.5rem;
-            @include desktop{
+
+            @include desktop {
                 max-width: none;
             }
         }
@@ -303,8 +318,36 @@ select {
     @include tablet {
         width: 50%;
     }
-    @include desktop{
+
+    @include desktop {
         max-width: none;
         width: 500px;
+    }
+}
+
+.SendOrderRequestError {
+    &Wrapper {
+        padding-left: 1rem;
+        display: flex;
+        flex-direction: column;
+        font-weight: bold;
+        align-items: center;
+        color: red;
+        text-decoration: underline;
+        max-width: 315px;
+
+        @include desktop {
+            max-width: 500px;
+        }
+    }
+
+    &__notice {
+        font-size: .8rem;
+        margin-bottom: 3px;
+
+        &:last-child {
+            margin-bottom: 1rem;
+        }
+
     }
 }

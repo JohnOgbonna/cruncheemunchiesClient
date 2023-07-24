@@ -228,12 +228,10 @@ a {
 
         @include tablet {
             &:hover {
-                scale: 1.05;
-                transform: translateY(-8px);
-                transition: all .2s ease;
-                z-index: 4;
+                text-decoration: underline;
+                font-weight: bold;
+                border: 2px solid white;
             }
-
             &:last-child {
                 min-width: 120px;
 

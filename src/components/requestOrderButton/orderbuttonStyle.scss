@@ -1,11 +1,23 @@
+@use '../partials/mixins' as*;
+@use '../partials/variables' as*;
+
 .OrderButton{
     position: fixed;
     bottom: 70px;
     right: 50px;
+    @include button-styles;
+    padding: .8rem;
+    font-size: 1rem;
+    z-index: 1;
+    &:hover{
+        scale: 1.07;
+        transition: all .3s;
+    }
+
     &__wrapper{
         position: absolute;
         width: 100vw;
         height: 100vh;
-        z-index: 6;
+       
     }
 }

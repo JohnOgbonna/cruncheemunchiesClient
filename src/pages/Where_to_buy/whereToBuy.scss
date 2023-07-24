@@ -1,68 +1,136 @@
 @use '../../components/partials/variables' as *;
 @use '../../components/partials/mixins' as *;
-.mapCard{
-    width: calc(100% - .5rem);
+
+.whereToBuy {
+    padding: 0 .5rem;
+
+    @include tablet {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 0 1rem;
+    }
+
+    &Header {
+        padding-bottom: 3px;
+        border-bottom: 1px solid orange;
+    }
+}
+
+.mapCard {
     display: flex;
     justify-content: center;
     margin-bottom: 1.5rem;
-    margin-left: .5rem;
     height: 15vh;
-    min-height: 80px;
+    min-height: 130px;
     box-shadow: 0.05rem 0.1rem 0.3rem -0.03rem rgba(0, 0, 0, 0.45);
-    @include tablet{
+    width: 100%;
+    max-width: 470px;
+    max-height: 140px;
+
+    @include tablet {
         width: calc(50% - 1rem);
         margin-right: .5rem;
+        &:hover{
+            scale: (1.05);
+            transition: all 0.3s;
+          }
     }
-    &Container{
-        @include tablet{
+
+    &Container {
+        @include tablet {
             display: flex;
             flex-wrap: wrap;
-            max-width: 1280px;
-            margin: auto;
+            justify-content: space-between;
         }
+
+        @include desktop {
+            max-width: none;
+            margin: 0 auto;
+        }
+
+        width: calc(100%);
     }
     justify-content: flex-start;
-    &__image{
+
+    &__image {
         width: 30%;
         margin-right: 1rem;
-    
+
     }
-    &__text{
-        &-header{
-            margin: .5rem 0 1rem 0;
+
+    &__text {
+        &-header {
+            margin: .5rem 0 0 0;
+
 
         }
-    }    
+
+        &-description {
+            border-top: 1px solid orange;
+            margin-top: 0;
+            padding-top: 1rem;
+
+            @include desktop {
+                max-width: 310px;
+            }
+        }
+    }
 }
-.mapFrame{
+
+.mapFrame {
     position: relative;
     left: .5rem;
     height: 50vh;
     min-height: 400px;
-    max-width: 1280px;
+    max-width: 900px;
     box-shadow: 0.05rem 0.1rem 0.3rem -0.03rem rgba(0, 0, 0, 0.45);
     position: relative;
     right: .5rem;
     width: 100%;
-   &Wrapper{
-    width: calc(100% - 1rem);
-       display: flex;
-       justify-content: center;
-       position: relative;
-      
-   }
-   
-    @include mobile{
-        &Wrapper{
+    @include tablet{
+        width: 100%;
+        left: 4px;
+    }
+
+    &Wrapper {
+        width: calc(100% - 1rem);
+        display: flex;
+        justify-content: center;
+        position: relative;
+       
+    }
+
+    &Icon {
+        width: 35px;
+        z-index: 3;
+        position: relative;
+        top: -27%;
+        right: -45%;
+
+    }
+    @include tablet{
+          &Icon{
+            display: none;
+          }  
+    }
+
+    @include mobile {
+        &Wrapper {
             position: absolute;
             z-index: 5;
             width: 100vw;
             height: 100vh;
+            top: 0;
+            background-color: rgba(73, 62, 48, 0.5);
+
         }
-        position: fixed;
-        bottom: 25vh;
-        width: 80vw;
-        left: 10vw;
-        
+
+        position: absolute;
+        top:25%;
+        left: 2%;
+        width: 90vw;
+        // left: 10vw;
+
+
     }
 }

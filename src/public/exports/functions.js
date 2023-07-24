@@ -4,3 +4,6 @@ export let formatCash = (number) => {
         currency: 'USD',
     })
 }
+export function isEmpty(obj) {
+    return Object.keys(obj).length === 0;
+}
