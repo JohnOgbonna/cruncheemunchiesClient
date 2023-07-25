@@ -5,6 +5,7 @@ import NavBar from './components/nav-bar/navBar';
 import OrderButton from './components/requestOrderButton/orderButton';
 import WhereTobuy from './pages/where_to_buy/whereToBuy';
 import OrderPage from './pages/order/orderpage';
+import ContactUsPage from './pages/contact_us/ContactUsPage';
 import React, { useState, useEffect } from 'react';
 import SendRequestPage from './pages/send_request/SendRequestPage';
 
@@ -42,6 +43,7 @@ function App() {
             <Route path="send-order-request" element={<SendRequestPage/>} />
             <Route path="send-order-request/:section" element={<SendRequestPage />} />
             <Route path="send-order-request/:section/:subsection" element={<SendRequestPage />} />
+            <Route path="contact-us" element={<ContactUsPage />} />
           </Routes>
         </Order.Provider>
       </div>

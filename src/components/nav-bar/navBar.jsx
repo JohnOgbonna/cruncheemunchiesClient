@@ -132,6 +132,7 @@ function NavBar() {
         },
         {
             name: 'Follow Us/Contact us',
+            route: 'contact-us',
             links: [
                 {
                     name: 'Instagram',

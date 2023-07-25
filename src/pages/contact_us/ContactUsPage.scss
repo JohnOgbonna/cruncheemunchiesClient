@@ -1,0 +1,118 @@
+@use '../../components/partials/mixins' as*;
+@use '../../components/partials/variables' as*;
+
+.ContactUsPage {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 1rem;
+
+    @include mobile {
+        padding: 0 .5rem;
+    }
+
+    @include desktop {
+        max-width: 1280px;
+    }
+
+    &Header {
+        margin: 0;
+
+        &__header {
+            border-bottom: 1px solid orange;
+            width: 100%;
+        }
+    }
+
+    &iframe {
+        min-height: 600px;
+        min-width: 300px;
+        border-radius: 5px;
+        border: 1px solid $default-text-color;
+        width: 100%;
+        align-self: center;
+
+        @include tablet {
+            min-height: 650px;
+        }
+    }
+
+    &Instagram {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 3rem;
+    }
+
+    &Messenger {
+        &__fields {
+            display: flex;
+            flex-direction: column;
+        }
+
+        &__messenger {
+            @include tablet {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            &-fields {
+                @include tablet {
+                    width: 60%;
+                    margin-right: 2rem;
+                    max-width: 550px;
+                }
+
+                &--wrapper {
+                    display: flex;
+                    flex-direction: column;
+                    margin-bottom: .6rem;
+
+                    @include mobile {
+                        max-width: 400px;
+                    }
+
+                    @include tablet {
+                        max-width: 500px;
+                    }
+                }
+
+                &--input {
+                    background-color: antiquewhite;
+                    border: none;
+                    padding-left: .5rem;
+                    height: 1.5rem;
+                    font-family: website;
+                    font-size: 1rem;
+                }
+
+                &--textarea {
+                    background-color: antiquewhite;
+                    border-radius: 4px;
+                    height: 8rem;
+                    font-family: website;
+                    font-size: 1rem;
+                    padding-left: .5rem;
+                }
+            }
+
+        }
+
+        &__button {
+            @include button-styles;
+            height: 1.8rem;
+            font-size: 1rem;
+            margin: 0;
+            width: 6rem;
+            padding-top: 2px;
+            @include tablet {
+                position: relative;
+                bottom: 8rem;
+            }
+
+        }
+    }
+}
+
+label {
+    border-top: 1px solid $default-text-color;
+}
