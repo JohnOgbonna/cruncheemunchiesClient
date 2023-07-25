@@ -25,6 +25,7 @@
             margin-right: 1rem;
             width: 45%;
             max-width: 500px;
+            @include text-hover;
 
             &:last-child {
                 margin-right: 0;

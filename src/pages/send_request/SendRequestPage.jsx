@@ -52,7 +52,7 @@ function SendRequestPage() {
     function validateFields(body, addresses) {
         let errorList = []
         Object.keys(contactFields).forEach(field => {
-            if (contactFields[field].mandatory && (!body[field] || body[field] === '')) {
+            if (contactFields[field].mandatory && (!body[field] || body[field].replace(/\s+/g, '') === '')) {
                 errorList.push(field)
             }
         })
@@ -88,10 +88,10 @@ function SendRequestPage() {
         if (validateFields(body, addressess)) {
             axios.post(`${constants.serverLink}`, body)
                 .then(res => {
-                    alert('form submitted')
+                    alert(res.data)
                 })
                 .catch(err => {
-                    alert(err)
+                    alert('Error, Message not sent!')
                 })
         }
     }

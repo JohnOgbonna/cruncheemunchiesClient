@@ -7,8 +7,7 @@ import { formatCash } from '../../../public/exports/functions';
 import { icons } from '../../../public/exports/icons';
 import OrderRequestContact from './sendOrderRequestContact';
 import { constants } from '../../../public/exports/constants';
-import {useNavigate} from 'react-router-dom';
-import {SendOrderRequestError} from './sendOrderRequestError'
+import { useNavigate } from 'react-router-dom';
 
 function SendStandardOrderRequest(props) {
     const [order, setOrder] = useContext(Order)
@@ -22,7 +21,7 @@ function SendStandardOrderRequest(props) {
             quantityPlaceholder[item] = order[props.section.name][item].amount
         })
         setQuantity(quantityPlaceholder)
-    }, [], [props.section])
+    }, [props.section] ,[])
 
     function orderTotal() {
         let totalItems = 0
@@ -50,7 +49,7 @@ function SendStandardOrderRequest(props) {
             constants.labelPrice : 0
         if (amount < 100 || props.section.name === 'standardOrder') discount = false
         else discount = true
-        if(!amount) return order[props.section.name][section].totalCost
+        if (!amount) return order[props.section.name][section].totalCost
         if (!discount) return (order[props.section.name][section].cost + labelCost) * amount
         else {
             return ((order[props.section.name][section].cost + labelCost - constants[`discount${section}`]) * amount)
@@ -60,7 +59,7 @@ function SendStandardOrderRequest(props) {
         const labelCost = order[props.section.name][section].label ?
             constants.labelPrice : 0
         //set discount if amount >= 100
-        const discount = 100 > amount || props.section.name === 'standardOrder'? false : true
+        const discount = 100 > amount || props.section.name === 'standardOrder' ? false : true
         setOrder({
             ...order,
             [props.section.name]: {
@@ -72,7 +71,7 @@ function SendStandardOrderRequest(props) {
                     'totalCost': discount ? (order[props.section.name][section].cost - constants[`discount${section}`] + labelCost) * amount :
                         amount * (order[props.section.name][section].cost + labelCost),
 
-                    'discountAdded': props.section.name === 'customOrder' ?discount : false,
+                    'discountAdded': props.section.name === 'customOrder' ? discount : false,
                     //modify discounted price
                     'discountedPrice': discount ? order[props.section.name][section].cost - constants[`discount${section}`] : order[props.section.name][section].cost
                 }
@@ -97,8 +96,8 @@ function SendStandardOrderRequest(props) {
                     <h3 className='requestOrderForm__orderDetails-header'>Order information</h3>
                     <h4 className='requestOrderForm__orderDetails-quantity'>{`${orderTotal().totalItems} Items Selected, Total = ${formatCash(orderTotal().totalCost)}`}</h4>
                     <button className='requestOrderForm__orderDetails-more'
-                    type = 'button'
-                    onClick={e=>{navigate(props.section.link)}}
+                        type='button'
+                        onClick={e => { navigate(props.section.link) }}
                     >Order More!</button>
                     <div className='requestOrderForm__orderDetails-container'>
                         {
@@ -110,7 +109,7 @@ function SendStandardOrderRequest(props) {
                                         <h5 className='requestOrderForm__orderDetails-info'>{`${item} chin-chin pack @ ${formatCash(orderObj.discountedPrice ?
                                             orderObj.discountedPrice :
                                             orderObj.cost
-                                        )} each ${orderObj.label ? formatCash(constants.labelPrice) : ''} ${orderObj.label ? `label charge` : props.section.name === 'customOrder'? 'no label selected' : ''}
+                                        )} each ${orderObj.label ? formatCash(constants.labelPrice) : ''} ${orderObj.label ? `label charge` : props.section.name === 'customOrder' ? 'no label selected' : ''}
                                          ${orderObj.discountAdded ? ', discount added' : ''}
                                          `
                                         }</h5>
@@ -138,15 +137,13 @@ function SendStandardOrderRequest(props) {
 
 
                                                     />
-
-
-                                                    <h5 className='requestOrderForm__orderDetails-edit--price'>{formatCash(calculateCost(item, (quantity[item] ), orderObj.discountAdded))}</h5>
+                                                    <h5 className='requestOrderForm__orderDetails-edit--price'>{formatCash(calculateCost(item, (quantity[item]), orderObj.discountAdded))}</h5>
                                                     <h5
                                                         className='requestOrderForm__orderDetails-edit--submit'
                                                         onClick={() => {
-                                                            if(quantity[item] > 0 || (quantity[item] !== 0 &&orderObj.totalCost > 0)){
-                                                            submitEdit(item, quantity[item])
-                                                        }
+                                                            if (quantity[item] > 0 || (quantity[item] !== 0 && orderObj.totalCost > 0)) {
+                                                                submitEdit(item, quantity[item])
+                                                            }
                                                         }}
 
                                                     >
@@ -177,11 +174,11 @@ function SendStandardOrderRequest(props) {
                         }
                     </div>
                 </div>
-               
+
                 <OrderRequestContact
                     section={props.section}
                     submitOrder={props.submitOrder}
-                    errors = {props.errors}
+                    errors={props.errors}
                 />
             </div>
         </div>

@@ -13,6 +13,11 @@ function OrderPage() {
             JSON.parse(localStorage.getItem('packageType')) : 'standard'
 
     )
+    useEffect(() => {
+        if (params.section === 'standard' || params.section === 'event'){
+            setPackageType(params.section)
+        }
+    }, [params])
 
     const packageTypes = [
         {
