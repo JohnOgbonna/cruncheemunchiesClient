@@ -55,8 +55,11 @@ function OrderRequestContact(props) {
             e.target.phone.value,
             e.target.message.value,
             e.target.needsDelivery.checked,
-            location.country,
-            location.region,
+            order.needsDelivery ? location.country : '',
+            order.needsDelivery ? location.region : '',
+            order.needsDelivery ? e.target.postalCode.value : '',
+            order.needsDelivery ? e.target.city.value : '',
+            order.needsDelivery ? e.target.address.value : ''
         )
     }
 
@@ -145,7 +148,7 @@ function OrderRequestContact(props) {
                                         })
                                     }}
                                     priorityOptions={['CA', 'US']}
-                                />
+        Z   q/>
 
                             </div>
                             <div className='OrderRequestContact__fields-address--wrapper'>

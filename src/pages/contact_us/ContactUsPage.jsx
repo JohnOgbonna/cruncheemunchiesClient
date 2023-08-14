@@ -2,17 +2,47 @@ import { useState, useContext } from 'react'
 import './ContactUsPage.scss';
 import { messengerFields } from '../../public/exports/messengerFields';
 import axios from 'axios';
+import SendOrderRequestError from '../send_request/send_request_sections/sendOrderRequestError';
+import { constants } from '../../public/exports/constants';
 
 
 export default function ContactUsPage() {
+    const [sentMessage, toggleSentMessage] = useState(false)
+    const [errors, setErrors] = useState([])
+    function sendMessage(e) {
+        e.preventDefault()
+        if (sentMessage) return
+        toggleSentMessage(true)
+        let errorList = []
+        let body = {
+            name: e.target.name.value,
+            email: e.target.email.value,
+            phone: e.target.phone.value,
+            message: e.target.message.value
+        }
+        Object.keys(messengerFields).forEach(field => {
+            let fieldObj = messengerFields[field]
+            if (fieldObj.mandatory && (!body[field] || body[field].replace(/\s+/g, '') === '')) errorList.push(field)
+        })
+        if (errorList.length > 0) {
+            setErrors(errorList)
+            return
+        }
+        axios.post(process.env.REACT_APP_MESSAGE_SERVER_LINK, body)
+            .then(res => {
+                alert(res.data)
+            })
+            .catch(err => {
+                alert('Error, message not sent')
+                toggleSentMessage(false)
+            })
+    }
 
     return (
         <div className='ContactUsPage'>
             <section className='ContactUsPageHeader'>
                 <h1 className='ContactUsPageHeader__header'>Follow / Contact Us</h1>
             </section>
-            {/* <script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>
-<div class="elfsight-app-6b92a307-55c0-43db-8e38-cc8a068e52c1"></div> */}
             <section className='ContactUsPageInstagram'>
                 <div className='ContactusPageInstagram__header'>
                     <h2 className='ContactusPageInstagram__header-header'>Instagram</h2>
@@ -25,7 +55,14 @@ export default function ContactUsPage() {
                     <h2 className='ContactusPageMessenger__header-header'>Send us a message</h2>
                     <p className='ContactusPageMessenger__header-text'>Send us a message! Ask any question or let us know how we can help you or improve your experience</p>
                 </div>
-                <form className='ContactUsPageMessenger__messenger'>
+                <SendOrderRequestError
+                    list={errors}
+                    type={'contactUs'}
+                />
+                <form className='ContactUsPageMessenger__messenger'
+                    onSubmit={e => { sendMessage(e) }}
+                    onChange={e => { toggleSentMessage(false) }}
+                >
                     <div className='ContactUsPageMessenger__messenger-fields'>
                         {
                             Object.keys(messengerFields).map(field => {
@@ -44,14 +81,14 @@ export default function ContactUsPage() {
                                         <div className='ContactUsPageMessenger__messenger-fields--wrapper'>
                                             <textarea className='ContactUsPageMessenger__messenger-fields--textarea' id={fieldObj.id}
                                             />
-                                            <label htmlFor={fieldObj.id}>{`${fieldObj.mandatory ? '*' : ''}${fieldObj.name}`}</label>
+                                            <label classname='label' htmlFor={fieldObj.id}>{`${fieldObj.mandatory ? '*' : ''}${fieldObj.name}`}</label>
                                         </div>
                                     )
                                 }
                             })
                         }
                     </div>
-                    <button className='ContactUsPageMessenger__button' type='submit'>Send!</button>
+                    <button className={`ContactUsPageMessenger__button${sentMessage ? 'Sent' : ''}`} type='submit'>{sentMessage ? 'Message Sent!' : 'Send!'}</button>
                 </form>
             </section>
         </div>

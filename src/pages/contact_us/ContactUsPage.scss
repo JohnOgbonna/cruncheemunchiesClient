@@ -97,7 +97,7 @@
 
         }
 
-        &__button {
+        &__button, &__buttonSent {
             @include button-styles;
             height: 1.8rem;
             font-size: 1rem;
@@ -110,9 +110,26 @@
             }
 
         }
+        &__buttonSent{
+            background-color: rgb(169, 133, 66);
+            width: fit-content; 
+            padding: 0 .5rem;
+        }
     }
 }
+.ContactUsError{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    &Wrapper{
+        color: red;
+        font-weight: bold;
+        text-decoration: underline;
+        font-size: .9rem;
+    }
+   
+}
 
-label {
+.label {
     border-top: 1px solid $default-text-color;
 }

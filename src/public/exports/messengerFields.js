@@ -29,7 +29,7 @@ export const messengerFields = {
         name: 'Message',
         type: 'textarea',
         inputType: 'editor',
-        mandatory: false,
+        mandatory: true,
         tag: 'textArea',
     },
 }

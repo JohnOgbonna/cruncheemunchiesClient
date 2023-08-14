@@ -66,11 +66,13 @@ function SendRequestPage() {
         else return true
     }
 
-    function submitOrder(type, order, firstName, lastName, email, phone, message, needsDelivery, country, region, postalCode, totalCost) {
+    function submitOrder(type, order, firstName, lastName, email, phone, message, needsDelivery, country, region, postalCode, city, address) {
         const addressess = {
             country: country,
             region: region,
-            postalCode: postalCode
+            postalCode: postalCode,
+            city: city,
+            address: address
         }
         const body = {
             type: type,
@@ -83,15 +85,15 @@ function SendRequestPage() {
             message: message,
             needsDelivery: needsDelivery,
             addressFields: addressess,
-            totalCost: totalCost
+         
         }
         if (validateFields(body, addressess)) {
-            axios.post(`${constants.serverLink}`, body)
+            axios.post(`${constants.orderServerLink}`, body)
                 .then(res => {
                     alert(res.data)
                 })
                 .catch(err => {
-                    alert('Error, Message not sent!')
+                    alert('Error, message not sent!')
                 })
         }
     }

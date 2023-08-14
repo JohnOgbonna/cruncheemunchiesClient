@@ -1,22 +1,56 @@
 @use '../../components/partials/mixins' as *;
 @use '../../components/partials/variables' as *;
 
-.App{
+.App {
     font-family: website;
 }
-.Page{
+
+.Page {
     padding: .5rem 1rem;
     min-height: 100vh;
-    @include tablet{
+
+    @include tablet {
         padding: .5rem 0rem;
     }
-    &__header{
-        @include tablet{
+
+    &__header {
+        @include tablet {
             margin: 0 1rem;
             max-width: 1280px;
         }
     }
 }
-body{
+
+.LandingPage {
+    &__header {
+        text-align: center;
+
+        &-list {
+            display: flex;
+            justify-content: center;
+
+            &--item {
+                list-style-position: inside;
+                width: fit-content;
+                min-width: 84px;
+                margin-right: 1rem;
+                text-align: center;
+                overflow-x: scroll;
+
+                &:hover {
+                    @include text-hover;
+                }
+
+                @include mobile {
+                    font-size: .9rem;
+
+                }
+            }
+        }
+    }
+
+}
+
+body {
     position: relative;
 }
