@@ -8,9 +8,11 @@
 .Page {
     padding: .5rem 1rem;
     min-height: 100vh;
+    max-width: 900px;
+    margin: 0 auto;
 
-    @include tablet {
-        padding: .5rem 0rem;
+    @include desktop {
+        max-width: 1280px;
     }
 
     &__header {
@@ -28,23 +30,141 @@
         &-list {
             display: flex;
             justify-content: center;
-
+            padding: 0;
             &--item {
-                list-style-position: inside;
+                list-style: none;
                 width: fit-content;
                 min-width: 84px;
-                margin-right: 1rem;
                 text-align: center;
                 overflow-x: scroll;
+                border-right: 1px solid orange;
 
                 &:hover {
                     @include text-hover;
                 }
 
-                @include mobile {
-                    font-size: .9rem;
-
+                @include tablet {
+                    font-size: 1.1rem;
                 }
+            }
+        }
+    }
+
+    &__section {
+        margin: 0;
+        margin-bottom: 2.5rem;
+        display: flex;
+        flex-direction: column;
+
+        @include tablet {
+            margin: 0 1rem;
+            margin-bottom: 3.5rem;
+        }
+
+        &-image,
+        &-imageLarge {
+            max-height: 350px;
+            border-radius: 5px;
+            max-width: 97vw;
+        }
+
+        &-imageLarge {
+            height: 350px;
+            width: auto;
+            max-width: none;
+
+            @include tablet {
+                height: 40vh;
+            }
+        }
+
+        &-images {
+            display: flex;
+            animation: animate 100s linear infinite;
+            align-items: center;
+
+            &:hover {
+                animation-play-state: paused;
+            }
+
+            @include tablet {
+                display: none;
+            }
+
+            &Large {
+                @include mobile {
+                    display: none;
+                }
+
+                display: flex;
+                overflow-x: scroll;
+
+                @include desktop {
+                    justify-content: center;
+                }
+            }
+
+        }
+
+        &-imageWrapper,
+        &-imageWrapperLarge {
+            margin-right: 3rem;
+        }
+
+        &-imagesMarquee {
+            width: calc(100% + 2rem);
+            overflow: hidden;
+            position: relative;
+            right: 1rem;
+
+            @include tablet {
+                overflow: scroll;
+            }
+        }
+
+        &-description {
+            @include tablet {
+                margin: 1.5rem 0;
+                margin-left: 1rem;
+            }
+
+            @include mobile {
+                font-size: .88rem;
+            }
+        }
+
+        &-text {
+            width: 100%;
+
+            @include tablet {
+                display: flex;
+                align-items: center;
+                margin-bottom: 1.5rem;
+            }
+
+        }
+
+        &-header {
+            text-decoration: underline;
+            @include tablet {
+                border-right: 1px solid orange;
+                padding-right: 1rem;
+                margin: 1.5rem 0;
+                min-width: fit-content;
+                text-decoration: none;
+            }
+
+        }
+
+        &-button {
+            @include button-styles;
+            margin: 0;
+            margin-top: 1.5rem;
+            width: fit-content;
+            align-self: center;
+
+            @include tablet {
+                font-size: 1rem;
             }
         }
     }
@@ -53,4 +173,19 @@
 
 body {
     position: relative;
+}
+
+@keyframes animate {
+    100% {
+        transform: translate(-500%, 0);
+    }
+}
+
+label {
+    display: block;
+    max-width: 250px;
+
+    @include mobile {
+        font-size: .85rem;
+    }
 }

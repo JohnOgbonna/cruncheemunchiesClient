@@ -6,7 +6,6 @@ import buns2 from '../images/chin-chin/homepage/buns2.png'
 
 
 export const hompageSections = {
-
     overview: {
         id: 'overview',
         name: 'African Snacks and Pastries',
@@ -29,6 +28,7 @@ export const hompageSections = {
     {
         id: 'chin-chin',
         name: 'Chin-Chin',
+        link: '/order/request-order',
         description: "The best Chin-Chin in the world! Right here, in Calgary! You've had Chin-Chin, but have you had Crunchee munchies? Rave reviews from virtually all customers! Order today!",
         images: {
             1: {
@@ -66,9 +66,10 @@ export const hompageSections = {
         }
     },
     puffPuff: {
-        id: 'puffPuff',
+        id: 'puff-puff',
         name: 'Puff-Puff',
         description: "Traditonal African Fried treat! Order individually or for catering. Online ordering coming soon!"
     }
 
 }
+export const imageLoop = [1,2,3,4,5]
