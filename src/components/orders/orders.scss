@@ -81,7 +81,7 @@
                 flex-direction: column;
                 width: fit-content;
                 justify-content: flex-end;
-                border-right: 1px solid orange;
+              
 
                 &:last-child {
                     border-right: none;
@@ -133,7 +133,11 @@
         width: 100%;
         right: 1rem;
         padding: 2.5rem 1rem 1rem 1rem;
-
+        &__header{
+            font-family: logo;
+            font-size: 2rem;
+            margin: .5rem 0;
+        }
         &__conditions {
             &-header {
                 text-decoration: underline;

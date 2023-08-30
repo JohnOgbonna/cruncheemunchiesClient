@@ -50,7 +50,7 @@ export default function ContactUsPage() {
                 </div>
                 <iframe className='ContactUsPageiframe' src='https://widget-6b92a30755c043db8e38cc8a068e52c1.elfsig.ht' />
             </section>
-            <section className='ContactusPageMessenger'>
+            <section className='ContactusPageMessenger' id = 'messenger'>
                 <div className='ContactusPageMessenger__header'>
                     <h2 className='ContactusPageMessenger__header-header'>Send us a message</h2>
                     <p className='ContactusPageMessenger__header-text'>Send us a message! Ask any question or let us know how we can help you or improve your experience</p>

@@ -16,6 +16,7 @@ function CustomOrderDetails() {
                                         id='customOrderImage'
                                         className='CustomOrderDetails__sizes-image'
                                         src={size.image}
+                                        alt = {size.name}
                                     />
                                     <h4
                                         className='CustomOrderDetails__sizes-caption'>{size.caption}</h4>

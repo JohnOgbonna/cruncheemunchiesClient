@@ -1,5 +1,5 @@
 import './navBar.scss'
-import { Link, useNavigate, useLocation} from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Order } from '../../App';
 import { useContext, useState, useEffect } from 'react';
 import { formatCash } from '../../public/exports/functions';
@@ -146,10 +146,15 @@ function NavBar() {
         },
     ]
     return (
-        
-        <div className='NavBar'>
+
+        <div className='NavBar'
+        >
             <div className='NavBar__line1'>
-                <h1 className="NavBar__Header">{'Crunchee Munchies'.toLocaleUpperCase()}</h1>
+                <h1 className="NavBar__Header"
+                onClick={()=>{
+                    navigate('/')
+                }}
+                >{'Crunchee Munchies'}</h1>
                 <ul className='NavBar__Container'>
                     {
                         sections.map(section => {
@@ -163,20 +168,20 @@ function NavBar() {
                 </ul>
             </div>
 
-            <div className={`NavBar__order${!emptyOrder() && location.pathname !== '/send-order-request' ? '': 'hidden' }`}> {selections.length > 1 ?
+            <div className={`NavBar__order${!emptyOrder() && location.pathname !== '/send-order-request' ? '' : 'hidden'}`}> {selections.length > 1 ?
                 selections.map(selection => {
                     return (
 
                         <div className={`NavBar__order-section${selection.orders.length < 1 ? 'Hidden' : ''}`}>
                             <h4 className='NavBar__order-section--header'
-                            onClick={()=>navigate(selection.link)}
+                                onClick={() => navigate(selection.link)}
                             >{selection.description}</h4>
                             <div className='NavBar__order-section--checkout'>
                                 <h4 className='NavBar__order-section--price'
-                                onClick={()=>navigate(selection.link)}
+                                    onClick={() => navigate(selection.link)}
                                 >{`${totalUnits[selection.code]} Total items = ${formatCash(getOrderTotals(selection.orders))}`}</h4>
                                 <button className='NavBar__order-section--button' type='button'
-                                onClick={()=>{navigate(selection.requestLink)}}
+                                    onClick={() => { navigate(selection.requestLink) }}
                                 >Order</button>
                                 <img className='NavBar__order-section--remove'
                                     src={icons.close}
@@ -188,7 +193,7 @@ function NavBar() {
                 })
                 : null
             }
-        </div>
+            </div>
         </div >
 
     )

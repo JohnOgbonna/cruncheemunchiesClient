@@ -5,11 +5,9 @@
 body {
     background-color: rgb(251, 246, 235);
     color: rgb(90, 70, 33);
-    padding-bottom: 200px;
-
+    padding-bottom: 120px;
     @include tablet {
-        padding-bottom: 2rem;
-
+        padding-bottom: 4rem;
     }
 }
 
@@ -24,6 +22,9 @@ body {
     width: 100%;
     justify-content: space-between;
     flex-direction: column;
+    @include mobile{
+        padding-top: 1rem ;
+    }
 
 
     &__line1 {
@@ -57,13 +58,21 @@ body {
     &__Header {
         font-weight: bold;
         font-weight: bolder;
+        font-family: logo;
+       
+        @include text-hover;
 
         @include mobile {
             display: none;
         }
+        @include tablet{
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
 
         margin-left: .5rem;
         font-size: 28px;
+        font-size: 2.5rem;
     }
 
     &__Container {

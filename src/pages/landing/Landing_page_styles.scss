@@ -3,14 +3,24 @@
 
 .App {
     font-family: website;
+    overflow-x: hidden;
+    
 }
+.backgroundWrapper {
+    width: 100vw;
+    position: relative;
+    padding: 0 1rem;
+    box-sizing: border-box;
+    &:nth-child(2n) {
+        background-color: rgb(255, 241, 214);
+       padding-bottom: 5px;
+    }
 
+}
 .Page {
-    padding: .5rem 1rem;
+    padding: .5rem 0rem;
     min-height: 100vh;
     max-width: 900px;
-    margin: 0 auto;
-
     @include desktop {
         max-width: 1280px;
     }
@@ -26,11 +36,17 @@
 .LandingPage {
     &__header {
         text-align: center;
-
+        width: 100vw;
+        &-title{
+            font-size: 2.5rem;
+            font-family: logo;
+            margin-top: 8px;
+        }
         &-list {
             display: flex;
             justify-content: center;
             padding: 0;
+
             &--item {
                 list-style: none;
                 width: fit-content;
@@ -38,6 +54,9 @@
                 text-align: center;
                 overflow-x: scroll;
                 border-right: 1px solid orange;
+                &:last-child{
+                    border: none;
+                }
 
                 &:hover {
                     @include text-hover;
@@ -82,7 +101,7 @@
             display: flex;
             animation: animate 100s linear infinite;
             align-items: center;
-
+        
             &:hover {
                 animation-play-state: paused;
             }
@@ -90,18 +109,18 @@
             @include tablet {
                 display: none;
             }
-
             &Large {
                 @include mobile {
                     display: none;
                 }
-
+                width: fit-content;
                 display: flex;
                 overflow-x: scroll;
-
-                @include desktop {
-                    justify-content: center;
+                margin: 0 auto;
+                @include desktop{
+                    max-width: 1280px;
                 }
+               
             }
 
         }
@@ -109,14 +128,15 @@
         &-imageWrapper,
         &-imageWrapperLarge {
             margin-right: 3rem;
+            height: fit-content;
         }
 
         &-imagesMarquee {
             width: calc(100% + 2rem);
-            overflow: hidden;
             position: relative;
             right: 1rem;
-
+            display: flex;
+            align-items: center;
             @include tablet {
                 overflow: scroll;
             }
@@ -126,6 +146,7 @@
             @include tablet {
                 margin: 1.5rem 0;
                 margin-left: 1rem;
+                max-width: 700px;
             }
 
             @include mobile {
@@ -140,12 +161,14 @@
                 display: flex;
                 align-items: center;
                 margin-bottom: 1.5rem;
+                justify-content: center;
             }
 
         }
 
         &-header {
             text-decoration: underline;
+
             @include tablet {
                 border-right: 1px solid orange;
                 padding-right: 1rem;
@@ -169,10 +192,6 @@
         }
     }
 
-}
-
-body {
-    position: relative;
 }
 
 @keyframes animate {

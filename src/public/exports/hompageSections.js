@@ -21,7 +21,9 @@ export const hompageSections = {
                 description: 'Specialty Buns, only from Crunchee-Munchies',
                 image: buns1
             }
-        }
+        },
+        noOrderButton: true,
+        
 
     },
     chinChin:
