@@ -41,7 +41,7 @@ export const contactFields = {
     },
     needsDelivery: {
         id: 'needsDelivery',
-        name: 'Do you require delivery? (delivery charge will apply at up to $35 within Calgary) Pickup in Northwest Calgary at no extra charge. For orders outisde Calgary, you will be resposible for courier shipping fees',
+        name: 'Do you require delivery? (delivery charge will apply at up to $50 within Calgary) Pickup in Northwest Calgary at no extra charge. For orders outisde Calgary, you will be resposible for courier shipping fees',
         type: 'input',
         inputType: 'checkbox',
         mandatory: false,

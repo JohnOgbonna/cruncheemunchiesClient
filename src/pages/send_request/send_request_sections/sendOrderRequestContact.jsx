@@ -3,7 +3,7 @@ import { useState, useContext, React } from 'react'
 import { contactFields, addressFields } from '../../../public/exports/contactFields'
 import { useEffect } from 'react'
 import { Order } from '../../../App'
-import { CountryDropdown, RegionDropdown, CountryRegionData } from 'react-country-region-selector';
+import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
 import SendOrderRequestError from './sendOrderRequestError'
 
 
@@ -20,6 +20,7 @@ function OrderRequestContact(props) {
         country: 'Canada',
         region: '',
     })
+    const [orderSent, setOrderSent] = useState(false)
 
     function updateField(field, value, address) {
         if (!address) {
@@ -43,6 +44,12 @@ function OrderRequestContact(props) {
 
     }, [inputs])
 
+    useEffect(()=>{
+        if(props.errors.length > 0){
+            setOrderSent(false)
+        }
+    },[props.errors])
+
 
     const onSubmitClick = (e) => {
         e.preventDefault()
@@ -55,24 +62,27 @@ function OrderRequestContact(props) {
             e.target.phone.value,
             e.target.message.value,
             e.target.needsDelivery.checked,
-            order.needsDelivery ? location.country : '',
-            order.needsDelivery ? location.region : '',
-            order.needsDelivery ? e.target.postalCode.value : '',
-            order.needsDelivery ? e.target.city.value : '',
-            order.needsDelivery ? e.target.address.value : ''
+            e.target.needsDelivery.checked ? location.country : '',
+            e.target.needsDelivery.checked ? location.region : '',
+            e.target.needsDelivery.checked ? e.target.postalCode.value : '',
+            e.target.needsDelivery.checked ? e.target.city.value : '',
+            e.target.needsDelivery.checked ? e.target.address.value : ''
         )
+
     }
 
     return (
         <form className='contactForm'
-            onSubmit={(e) => onSubmitClick(e)}
+            onSubmit={(e) => {
+                if(!orderSent) onSubmitClick(e)
+            }}
         >
             <h3 className='OrderRequestContact__header'>Contact Information</h3>
             {
                 props.errors.length > 0 ?
-                        <SendOrderRequestError
-                            list={props.errors}
-                        />
+                    <SendOrderRequestError
+                        list={props.errors}
+                    />
                     : null
             }
             <div className='OrderRequestContact__fields'>
@@ -85,7 +95,7 @@ function OrderRequestContact(props) {
                                 <div className='OrderRequestContact__fields-wrapper'>
                                     <div className={`OrderRequestContact__fields-input${fieldObj.inputType === 'checkbox' ? 'Check' : ''}`}>
                                         <input
-                                            className={`OrderRequestContact__fields-${fieldObj.tag}${props.errors.includes(field) ?'Error' : ''}`
+                                            className={`OrderRequestContact__fields-${fieldObj.tag}${props.errors.includes(field) ? 'Error' : ''}`
                                             }
                                             id={fieldObj.id}
                                             type={fieldObj.inputType}
@@ -98,14 +108,14 @@ function OrderRequestContact(props) {
                                             htmlFor={fieldObj.id}
                                             className={`OrderRequestContact__fields-label${field === 'needsDelivery' ? 'Wide' : ''}`}
                                         >
-                                            {`${fieldObj.mandatory? '*' : ''}${fieldObj.name}`}
+                                            {`${fieldObj.mandatory ? '*' : ''}${fieldObj.name}`}
                                         </label>
                                     </div>
                                 </div>
                             )
 
                         }
-                        if (fieldObj.type === 'textarea') {
+                        else if (fieldObj.type === 'textarea') {
                             return (
                                 <div className='OrderRequestContact__fields-wrapper'>
                                     <div className={`OrderRequestContact__fields-input`}>
@@ -115,8 +125,6 @@ function OrderRequestContact(props) {
                                             type={fieldObj.inputType}
                                             onChange={e => {
                                                 updateField(field, (e.target.type !== 'checkbox' ? e.target.value : e.target.checked))
-                                                console.log(inputs)
-
                                             }
                                             }
                                         />
@@ -130,6 +138,7 @@ function OrderRequestContact(props) {
                                 </div>
                             )
                         }
+                        else return null
                     })
 
                 }
@@ -148,7 +157,7 @@ function OrderRequestContact(props) {
                                         })
                                     }}
                                     priorityOptions={['CA', 'US']}
-        Z   q/>
+                                />
 
                             </div>
                             <div className='OrderRequestContact__fields-address--wrapper'>
@@ -170,7 +179,7 @@ function OrderRequestContact(props) {
                                     return (
                                         <div className={`OrderRequestContact__fields-input${fieldObj.inputType === 'checkbox' ? 'Check' : ''}`}>
                                             <input
-                                                className={`OrderRequestContact__fields-${fieldObj.tag}${props.errors.includes(field) ?'Error' : ''}`}
+                                                className={`OrderRequestContact__fields-${fieldObj.tag}${props.errors.includes(field) ? 'Error' : ''}`}
                                                 id={fieldObj.id}
                                                 type={fieldObj.inputType}
                                                 onChange={e => {
@@ -195,8 +204,8 @@ function OrderRequestContact(props) {
                         </div> : null
                 }
             </div>
-            <button type='submit' className='submitButton'
-            >Send order request</button>
+            <button type='submit' className={`submitButton${orderSent ? 'Sent' : ''}`}
+            >Send Order Request</button>
         </form>
     )
 }

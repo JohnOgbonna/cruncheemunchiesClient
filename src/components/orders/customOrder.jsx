@@ -2,17 +2,18 @@ import './orders.scss';
 import { useState, React } from 'react';
 import CustomOrderDetails from './customOrder_subsections/customOrder_details';
 import CustomOrderSelection from './customOrder_subsections/customOrderSelection';
-import {useParams, useNavigate} from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
+import { isEqualString } from '../../public/exports/functions';
 
 function CustomOrder() {
     const params = useParams()
     const navigate = useNavigate()
     const [section, changeSection] = useState(
         params.subsection && (params.subsection === 'details' || params.subsection === 'order') ? params.subsection
-        :
-        localStorage.getItem('customOrderSection') ?
-        JSON.parse(localStorage.getItem('customOrderSection')) :
-        'details'
+            :
+            localStorage.getItem('customOrderSection') ?
+                JSON.parse(localStorage.getItem('customOrderSection')) :
+                'details'
     )
 
     const sections = [
@@ -40,16 +41,19 @@ function CustomOrder() {
                 </div>
                 <div className='CustomOrderHeader__selector'>
                     {
-                        sections.map(section => {
+                        sections.map(sectionObj => {
                             return (
-                                <div className='CustomOrderHeader__selector-item'
-                                    onClick={() =>{ changeSection(section.section)
-                                    localStorage.setItem('customOrderSection', JSON.stringify(section.section))
-                                    navigate(`/order/event/${section.section}`)
+                                <div className={isEqualString(sectionObj.section, section) ? 'CustomOrderHeader__selector-itemSelected':
+                                'CustomOrderHeader__selector-item'
+                                }
+                                    onClick={() => {
+                                        changeSection(sectionObj.section)
+                                        localStorage.setItem('customOrderSection', JSON.stringify(sectionObj.section))
+                                        navigate(`/order/event/${sectionObj.section}`)
                                     }}
                                 >
-                                    <h4 className='CustomOrderHeader__selector-item--header'>{section.name}</h4>
-                                    <p className='CustomOrderHeader__selector-item--info'>{section.info}</p>
+                                    <h4 className='CustomOrderHeader__selector-item--header'>{sectionObj.name}</h4>
+                                    <p className='CustomOrderHeader__selector-item--info'>{sectionObj.info}</p>
                                 </div>
                             )
                         })
@@ -59,7 +63,7 @@ function CustomOrder() {
             {
                 section !== 'order' ?
                     <CustomOrderDetails />
-                    : 
+                    :
                     <CustomOrderSelection />
             }
             <section className='CustomOrderFooter'>

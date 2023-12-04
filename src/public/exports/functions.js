@@ -7,3 +7,6 @@ export let formatCash = (number) => {
 export function isEmpty(obj) {
     return Object.keys(obj).length === 0;
 }
+export function isEqualString(strA, strB){
+    return(strA === strB)
+}

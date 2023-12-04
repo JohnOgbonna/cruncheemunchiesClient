@@ -1,0 +1,35 @@
+@use '../partials/mixins' as*;
+@use '../partials/variables' as*;
+
+.OrderRequestModal, .OrderRequestModalHidden{
+    position: fixed;
+    z-index: 5;
+    box-shadow: 0.05rem 0.1rem 0.3rem -0.03rem rgba(0, 0, 0, 0.45);
+    top: 8%;
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(255, 241, 214);
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid $default-text-color;
+    width: 50%;
+    min-width: 270px;
+    max-width: 600px;
+    border-radius: 5px;
+    padding: .5rem .5rem;
+    transition: all (0.3s);
+    &__line1{
+        display: flex;
+        justify-content: flex-end;
+        &-icon{
+            width: 25px;
+        }
+    }
+    &__message{
+        font-size: 1.1rem;
+    }
+}
+.OrderRequestModalHidden{
+    top: -20%;
+   transition: all (0.3s);
+}

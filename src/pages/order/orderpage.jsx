@@ -3,6 +3,7 @@ import { useState, useEffect, React } from 'react'
 import StandardOrder from '../../components/orders/standardOrder'
 import CustomOrder from '../../components/orders/customOrder'
 import { useParams, useNavigate } from 'react-router-dom'
+import { isEqualString } from '../../public/exports/functions'
 
 function OrderPage() {
 
@@ -14,7 +15,7 @@ function OrderPage() {
 
     )
     useEffect(() => {
-        if (params.section === 'standard' || params.section === 'event'){
+        if (params.section === 'standard' || params.section === 'event') {
             setPackageType(params.section)
         }
     }, [params])
@@ -41,11 +42,13 @@ function OrderPage() {
                     {
                         packageTypes.map(type => {
                             return (
-                                <li className='OrderpageSelector__options-option' onClick={() => {
-                                    setPackageType(type.name)
-                                    localStorage.setItem('packageType', JSON.stringify(type.name))
-                                    navigate(`/order/${type.name}`)
-                                }}>
+                                <li className={isEqualString(type.name, packageType) ?`OrderpageSelector__options-optionSelected`: 'OrderpageSelector__options-option'
+                            }
+                                    onClick={() => {
+                                        setPackageType(type.name)
+                                        localStorage.setItem('packageType', JSON.stringify(type.name))
+                                        navigate(`/order/${type.name}`)
+                                    }}>
                                     <h3 className='OrderpageSelector__name'>{type.desciption}</h3>
                                     <p className='OrderpageSelector__info'>{type.info}</p>
                                 </li>

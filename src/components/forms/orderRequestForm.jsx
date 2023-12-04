@@ -58,7 +58,7 @@ function OrderRequestForm() {
                 totalCost: totalCost
             }
         }
-        console.log(body)
+        
         //validation
         if (!body.name || !body.senderEmail) {
             return alert(`Please Enter ${!body.name ? 'your name' : 'a valid email address'}${!body.name && !body.senderEmail ? ' and a valid email address' : ''}`)
@@ -67,7 +67,7 @@ function OrderRequestForm() {
             return alert('Please enter a valid email address');
         }
         if (totalCost <= 0) return alert('Please select what you would like to order')
-        axios.post('http://localhost:5001/orderRequest/', body)
+        axios.post(process.env.REACT_APP_ORDER_SERVER_LINK, body)
             .then(res => {
                 alert(res.data)
                 setSizeOrders({

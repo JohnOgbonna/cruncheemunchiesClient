@@ -12,7 +12,6 @@ export default function PageNotFound() {
         if(secondsLeft) countdownInitiated = true
         else start(5)
         if (secondsLeft <= 1 && countdownInitiated){
-            console.log('yes!')
             navigate('/')
         }
     },[secondsLeft, navigate, start],[])

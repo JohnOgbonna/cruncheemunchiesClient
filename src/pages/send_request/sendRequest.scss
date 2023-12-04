@@ -21,7 +21,7 @@
 
         border-bottom: 1px solid orange;
 
-        &__text {
+        &__text &__textSelected {
             margin-right: 1rem;
             width: 45%;
             max-width: 500px;
@@ -29,7 +29,12 @@
 
             &:last-child {
                 margin-right: 0;
+                margin-left: .5rem;
             }
+        }
+        &__textSelected{
+           text-decoration: underline;
+           font-weight: bold;
         }
 
         &__name {
@@ -302,17 +307,20 @@ select {
     }
 }
 
-.submitButton {
+.submitButton, .submitButtonSent{
     @include button-styles;
     margin-top: 1rem;
     height: 1.7rem;
     position: relative;
     left: 25%;
-
+   
     @include tablet {
         left: -5%;
         top: 1rem;
     }
+}
+.submitButtonSent{
+    background-color: rgb(90, 76, 50);
 }
 
 .contactForm {

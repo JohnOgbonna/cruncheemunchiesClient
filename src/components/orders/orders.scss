@@ -19,10 +19,10 @@
             }
         }
 
-        &__selector {
+        &__selector{
             display: flex;
 
-            &-item {
+            &-item,  &-itemSelected {
                 margin-right: 2rem;
                 @include tablet{
                     &:hover{
@@ -44,6 +44,11 @@
                     }
                 }
             }
+            &-itemSelected{
+                font-weight: bold;
+                text-decoration: underline;
+            }
+            
         }
     }
 
