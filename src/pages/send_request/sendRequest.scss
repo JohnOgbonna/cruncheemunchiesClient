@@ -14,7 +14,7 @@
 
     &Selector {
         display: flex;
-
+        justify-content: space-between;
         @include mobile {
             max-width: 700px;
         }

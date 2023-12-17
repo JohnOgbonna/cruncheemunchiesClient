@@ -1,4 +1,4 @@
-import { React, useState, useContext } from 'react'
+import { React, useState,} from 'react'
 import './sendRequest.scss'
 import SendStandardOrderRequest from './send_request_sections/sendStandardOrderRequest'
 import { useNavigate, useParams } from 'react-router-dom'
@@ -7,7 +7,6 @@ import { contactFields, addressFields } from '../../public/exports/contactFields
 import axios from 'axios'
 import LoadingScreen from '../../components/loading-screen/loadingScreen'
 import OrderRequestModal from '../../components/orderRequestModal/orderRequestModal'
-import { Order } from '../../App'
 import { isEqualString } from '../../public/exports/functions'
 
 const sections = {
@@ -24,13 +23,12 @@ const sections = {
         description: 'Event / Custom Packaged Order',
         info: 'Complete order request for Crunchee Munchies event packaged order',
         title: 'Event / Party Order',
-        link: '/order/event',
+        link: '/order/event/order',
         navigate: '/send-order-request/event'
     }
 }
 
 function SendRequestPage() {
-    const [order] = useContext(Order)
     const navigate = useNavigate()
     const params = useParams()
     const [selection, setSelection] = useState(

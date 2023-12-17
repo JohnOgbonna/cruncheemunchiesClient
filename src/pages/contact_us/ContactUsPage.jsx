@@ -1,9 +1,9 @@
-import { useState, useContext } from 'react'
+import { useState} from 'react'
 import './ContactUsPage.scss';
 import { messengerFields } from '../../public/exports/messengerFields';
 import axios from 'axios';
 import SendOrderRequestError from '../send_request/send_request_sections/sendOrderRequestError';
-import { constants } from '../../public/exports/constants';
+
 
 
 export default function ContactUsPage() {
@@ -48,7 +48,7 @@ export default function ContactUsPage() {
                     <h2 className='ContactusPageInstagram__header-header'>Instagram</h2>
                     <p className='ContactusPageInstagram__header-text'>Follow us on Instagram</p>
                 </div>
-                <iframe className='ContactUsPageiframe' src='https://widget-6b92a30755c043db8e38cc8a068e52c1.elfsig.ht' />
+                <iframe className='ContactUsPageiframe' src='https://c1ceabd5e83d4912ae0e35762370f4c1.elf.site' title = 'instagram'/>
             </section>
             <section className='ContactusPageMessenger' id = 'messenger'>
                 <div className='ContactusPageMessenger__header'>
@@ -76,15 +76,16 @@ export default function ContactUsPage() {
                                         </div>
                                     )
                                 }
-                                if (fieldObj.type === 'textarea') {
+                                else if (fieldObj.type === 'textarea') {
                                     return (
                                         <div className='ContactUsPageMessenger__messenger-fields--wrapper'>
                                             <textarea className='ContactUsPageMessenger__messenger-fields--textarea' id={fieldObj.id}
                                             />
-                                            <label classname='label' htmlFor={fieldObj.id}>{`${fieldObj.mandatory ? '*' : ''}${fieldObj.name}`}</label>
+                                            <label className='label' htmlFor={fieldObj.id}>{`${fieldObj.mandatory ? '*' : ''}${fieldObj.name}`}</label>
                                         </div>
                                     )
                                 }
+                                else return null
                             })
                         }
                     </div>

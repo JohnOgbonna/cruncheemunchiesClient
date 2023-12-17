@@ -54,7 +54,7 @@ function NavBar() {
                 description: 'Custom Event Order',
                 orders: customOrderselections,
                 code: 'custom',
-                link: '/order/event',
+                link: '/order/event/order',
                 requestLink: '/send-order-request/event'
             },
         ])

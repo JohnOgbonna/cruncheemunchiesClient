@@ -4,7 +4,6 @@ import chinChin750 from '../images/chin-chin/homepage/chin-chin750g.png'
 import buns1 from '../images/chin-chin/homepage/buns1.png'
 import buns2 from '../images/chin-chin/homepage/buns2.png'
 
-
 export const hompageSections = {
     overview: {
         id: 'overview',
@@ -30,7 +29,7 @@ export const hompageSections = {
     {
         id: 'chin-chin',
         name: 'Chin-Chin',
-        link: '/order/request-order',
+        link: '/order/request-order/order',
         description: "The best Chin-Chin in the world! Right here, in Calgary! You've had Chin-Chin, but have you had Crunchee munchies? Rave reviews from virtually all customers! Order today!",
         images: {
             1: {

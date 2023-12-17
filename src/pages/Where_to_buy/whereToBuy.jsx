@@ -53,7 +53,7 @@ function WhereTobuy(props) {
                             <div className="mapCard" onClick={() => {
                                 changeDisplayStore(store)
                             }}>
-                                <img className="mapCard__image" src={store.image} />
+                                <img className="mapCard__image" src={store.image} alt ={store.name} />
                                 <div className="mapCard__text">
                                     <h3 className="mapCard__text-header">{store.name}</h3>
                                     <p className="mapCard__text-description">{`Address: ${store.description}`}</p>
@@ -69,11 +69,11 @@ function WhereTobuy(props) {
                         if (e.target === e.currentTarget) changeDisplayStore({})
                     }
                     }>
-                    <img className="mapFrameIcon" src={icons.close}
+                    <img className="mapFrameIcon" src={icons.close} alt = 'close icon'
                         onClick={(e) => {
                             changeDisplayStore({})
                         }} />
-                    <iframe className="mapFrame" src={displayStore.embededMap || ""} width="600" height="450" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <iframe className="mapFrame" src={displayStore.embededMap || ""} width="600" height="450" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title = 'map frame'></iframe>
                 </div>
                 : null}
         </div>

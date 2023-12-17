@@ -7,7 +7,7 @@ export default function Footer() {
         <div className="footer">
             <section className='footer__header'>
                 <h2 className='footer__header-title'
-                onClick={navigate('/')}>Crunchee Munchies</h2>
+                    onClick={() => navigate('/')}>Crunchee Munchies</h2>
             </section>
             <section className='footer__contact'>
                 <p className='footer__contact-message'
@@ -19,8 +19,8 @@ export default function Footer() {
                     {
                         Object.keys(logos).map(logo => {
                             return (
-                                <a className='footer__contact-link' 
-                                href = {logos[logo].link} target= 'blank'
+                                <a className='footer__contact-link'
+                                    href={logos[logo].link} target='blank'
                                 >
                                     <img className='footer__contact-icon'
                                         src={logos[logo].image}
