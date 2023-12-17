@@ -1,13 +1,14 @@
-import { React, useState,} from 'react'
+import { React, useState, } from 'react'
 import './sendRequest.scss'
 import SendStandardOrderRequest from './send_request_sections/sendStandardOrderRequest'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams} from 'react-router-dom'
 import { useEffect } from 'react'
 import { contactFields, addressFields } from '../../public/exports/contactFields'
 import axios from 'axios'
 import LoadingScreen from '../../components/loading-screen/loadingScreen'
 import OrderRequestModal from '../../components/orderRequestModal/orderRequestModal'
 import { isEqualString } from '../../public/exports/functions'
+import { isEmpty } from '../../public/exports/functions'
 
 const sections = {
     standardOrder: {
@@ -46,6 +47,12 @@ function SendRequestPage() {
     }, [params])
 
     let sectionsList = Object.keys(sections)
+    function setModalMessage(message) {
+        setMessage(message)
+    }
+    function removeModal() {
+        setMessage('')
+    }
 
     function validateFields(body, addresses) {
         let errorList = []
@@ -85,6 +92,11 @@ function SendRequestPage() {
             addressFields: addressess,
 
         }
+        if(isEmpty(body.order)){
+            setModalMessage('Your Order is Empty!')
+            return
+        }
+
         isloading(true)
         if (validateFields(body, addressess)) {
             axios.post(process.env.REACT_APP_ORDER_SERVER_LINK, body)
@@ -98,12 +110,6 @@ function SendRequestPage() {
                 })
         }
         else isloading(false)
-    }
-    function setModalMessage(message) {
-        setMessage(message)
-    }
-    function removeModal() {
-        setMessage('')
     }
 
     return (
@@ -132,7 +138,6 @@ function SendRequestPage() {
                     })
                 }
             </section>
-
             <section className='SendRequestForm'>
 
                 <SendStandardOrderRequest
@@ -148,6 +153,5 @@ function SendRequestPage() {
             />
         </div>
     )
-
 }
 export default SendRequestPage

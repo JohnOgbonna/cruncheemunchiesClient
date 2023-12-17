@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { contactFields, addressFields } from '../../../public/exports/contactFields'
 import { messengerFields } from '../../../public/exports/messengerFields'
 
@@ -7,7 +6,7 @@ function SendOrderRequestError(props) {
     const isContactMessage = props.type === 'contactUs' ? true : false;
 
     function errorField(field) {
-        if (props.type != 'contactUs') {
+        if (props.type !== 'contactUs') {
             if (contactFields[field] && contactFields[field].name)
                 return contactFields[field].name
             else if (addressFields[field] && addressFields[field].name)

@@ -21,7 +21,7 @@ function SendStandardOrderRequest(props) {
             quantityPlaceholder[item] = order[props.section.name][item].amount
         })
         setQuantity(quantityPlaceholder)
-    }, [props.section] ,[])
+    }, [props.section, order] ,[])
 
     function orderTotal() {
         let totalItems = 0
@@ -162,6 +162,7 @@ function SendStandardOrderRequest(props) {
                                         }
                                         <img className='requestOrderForm__orderDetails-remove'
                                             src={icons.closeBrown}
+                                            alt = 'close'
                                             onClick={() => {
                                                 removeItem(item)
                                             }}

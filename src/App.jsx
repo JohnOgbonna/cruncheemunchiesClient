@@ -31,7 +31,7 @@ function App() {
       <div className="App">
         <Order.Provider value={[order, setOrder]}>
           <NavBar />
-          {/* <OrderButton/> */}
+          <OrderButton/>
           <Routes>
             <Route path="/" exact element={<LandingPage />} />
             <Route path="locations" element={<WhereTobuy />} />
